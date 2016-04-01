@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Wh-7z-Cmm" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="20" width="600" height="505"/>
+                                <rect key="frame" x="0.0" y="20" width="600" height="530"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jeg-db-qGr">
                                         <rect key="frame" x="10" y="10" width="580" height="90"/>
@@ -36,10 +36,10 @@
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ixc-UC-fN5" userLabel="BottomView">
-                                <rect key="frame" x="0.0" y="525" width="600" height="75"/>
+                                <rect key="frame" x="0.0" y="550" width="600" height="50"/>
                                 <color key="backgroundColor" red="0.85909880049999998" green="0.85909880049999998" blue="0.85909880049999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="75" id="nB5-C6-Zg4"/>
+                                    <constraint firstAttribute="height" constant="50" id="nB5-C6-Zg4"/>
                                 </constraints>
                             </view>
                         </subviews>
