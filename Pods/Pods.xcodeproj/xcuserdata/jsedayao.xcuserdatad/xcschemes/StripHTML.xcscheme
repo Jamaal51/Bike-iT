@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '0A7863380DB09D50A7E19693'
-               BlueprintName = 'Pods-Bike-iT'
+               BlueprintIdentifier = '16F1766D59003CF4978F8DF0'
+               BlueprintName = 'StripHTML'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libPods-Bike-iT.a'>
+               BuildableName = 'libStripHTML.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

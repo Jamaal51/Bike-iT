@@ -7,31 +7,115 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		8C519899E134103BF01E59B2A6425BA4 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
-		9CDCD10C20E44DC395DB3BE99B7D6E26 /* Pods-Bike-iT-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2484F1B2E367ABB989AE66015A3FA5FF /* Pods-Bike-iT-dummy.m */; };
+		04E9254506E142F2DD0648141E78DFBD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		0ABE3863AA7194885AE5A65BC9F68292 /* NSString+StripHTML.m in Sources */ = {isa = PBXBuildFile; fileRef = F86833AE54ED0852A4665D2C88A49561 /* NSString+StripHTML.m */; };
+		2E0EF893B8843D4C7EA4E979F1CA60CC /* INTULocationRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 1408000254BA3FE3E6599206514A9DCC /* INTULocationRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		3B842DF9C7552A3F6AEF2852F4BBF767 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		47203760BB9DF52FD65477D97268A3AA /* INTULocationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3EDEBF0504F079A6B044E550C72632C1 /* INTULocationManager.m */; };
+		52445C3597AB1BFBDE72D75461581A09 /* NSString+StripHTML.h in Headers */ = {isa = PBXBuildFile; fileRef = DF2DE7083F1A62B77CD73C044CC75A17 /* NSString+StripHTML.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		66D0583075C56B7024826FB9D8FAEDC2 /* INTUHeadingRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 31D76BE1E14F4B8DEA19518B468FDD25 /* INTUHeadingRequest.m */; };
+		76F90EE2D28AB19554A0D10E43462370 /* INTULocationManager+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = C7B27163C4924044DACE9EA4FC0183D0 /* INTULocationManager+Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		7B1E429845B9563A9F5EA367C3758411 /* INTURequestIDGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 85A75C341C2135EB491A313A604F5A11 /* INTURequestIDGenerator.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		9A6D52246B1CB6837C9F9B403EB34D7A /* StripHTML-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 89EF323991C4347F1928413BF32A8F2E /* StripHTML-dummy.m */; };
+		A36E68C4CEDFC13260228BAE7F57881C /* INTUHeadingRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = CC788EC858DC7ACF03EDA39890AD6295 /* INTUHeadingRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		B94B56B836DA079EE6F98300E9EF97C8 /* INTURequestIDGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 3E8AD50DDAC630AA5D4E778933253A05 /* INTURequestIDGenerator.m */; };
+		BB8840C11EDC92B798C16B2008503345 /* INTULocationRequestDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = C57B39E120C1660C0FF9FEACE958B550 /* INTULocationRequestDefines.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		CFFC1D97C028CC13F8C712173BEC6367 /* INTULocationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = DE1CCC44E0EDDFF61B9659B639F25901 /* INTULocationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D0C3E9B513CBD10BF34F44A380DCEB77 /* INTULocationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B7AF0BED33FA9AC3461E1C1E76502FE4 /* INTULocationRequest.m */; };
+		D482EA9F0771C200EABDB87E8654EF11 /* Pods-Bike-iT-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 2484F1B2E367ABB989AE66015A3FA5FF /* Pods-Bike-iT-dummy.m */; };
+		D6DDDB1DC5EAF58CFBDC96D142532D5A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */; };
+		F180C99A07A325C35BCF659770E61140 /* INTULocationManager-dummy.m in Sources */ = {isa = PBXBuildFile; fileRef = 829CD2C7A4A5E380A55A65D1DD63E485 /* INTULocationManager-dummy.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		80DC485635CE4F4CFE0AD814B244156C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 307E129916E88C119B8D2307A7D2C729;
+			remoteInfo = StripHTML;
+		};
+		AF648137E420D05BEAFFA1BD1F20A957 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 76A88C9054AD7ADB60B9BA7618D3F48D;
+			remoteInfo = "StripHTML-StripHTML";
+		};
+		E7BF4A6ECA76C6CAEBD7DF2F9F793222 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = D41D8CD98F00B204E9800998ECF8427E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E07A1B93D0B5E99C6E979FACDA81D9B4;
+			remoteInfo = INTULocationManager;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
-		213B1724C62BE8BC65F92A9BC1A24B5B /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
+		0C21288E961B9717D779C1C1A8B3C584 /* GoogleMaps.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GoogleMaps.framework; path = Frameworks/GoogleMaps.framework; sourceTree = "<group>"; };
+		0F8777468D2B34CB7E25269C78F0964F /* libStripHTML.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libStripHTML.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		1408000254BA3FE3E6599206514A9DCC /* INTULocationRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = INTULocationRequest.h; path = LocationManager/INTULocationManager/INTULocationRequest.h; sourceTree = "<group>"; };
+		16ACC6528708FFEBE365042A3D5B2F0B /* INTULocationManager-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "INTULocationManager-prefix.pch"; sourceTree = "<group>"; };
 		2484F1B2E367ABB989AE66015A3FA5FF /* Pods-Bike-iT-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "Pods-Bike-iT-dummy.m"; sourceTree = "<group>"; };
+		285182157465D6D937BE25E61CDF0C89 /* StripHTML-prefix.pch */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "StripHTML-prefix.pch"; sourceTree = "<group>"; };
+		2912FFDDB9EEE3A3AA375E0EC6D80ADD /* GoogleMaps.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
 		2CE6517EBFA83AF02F9EBD5B020E4CDA /* Pods-Bike-iT-resources.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Bike-iT-resources.sh"; sourceTree = "<group>"; };
+		31D76BE1E14F4B8DEA19518B468FDD25 /* INTUHeadingRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = INTUHeadingRequest.m; path = LocationManager/INTULocationManager/INTUHeadingRequest.m; sourceTree = "<group>"; };
 		3E4E89230EF59BC255123B67864ACF77 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
-		9E17161130B27DB46F01569D1C6C5443 /* GoogleMaps.bundle */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = "wrapper.plug-in"; name = GoogleMaps.bundle; path = Frameworks/GoogleMaps.framework/Versions/A/Resources/GoogleMaps.bundle; sourceTree = "<group>"; };
-		A5D0F8AABD608419BB159D533F066DC7 /* libPods-Bike-iT.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bike-iT.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E8AD50DDAC630AA5D4E778933253A05 /* INTURequestIDGenerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = INTURequestIDGenerator.m; path = LocationManager/INTULocationManager/INTURequestIDGenerator.m; sourceTree = "<group>"; };
+		3EDEBF0504F079A6B044E550C72632C1 /* INTULocationManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = INTULocationManager.m; path = LocationManager/INTULocationManager/INTULocationManager.m; sourceTree = "<group>"; };
+		48E7805EF0506F296943488C36903115 /* StripHTML.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = StripHTML.xcconfig; sourceTree = "<group>"; };
+		6CCB132F361D7C7307079FBECBA305D8 /* INTULocationManager.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = INTULocationManager.xcconfig; sourceTree = "<group>"; };
+		829CD2C7A4A5E380A55A65D1DD63E485 /* INTULocationManager-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "INTULocationManager-dummy.m"; sourceTree = "<group>"; };
+		85A75C341C2135EB491A313A604F5A11 /* INTURequestIDGenerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = INTURequestIDGenerator.h; path = LocationManager/INTULocationManager/INTURequestIDGenerator.h; sourceTree = "<group>"; };
+		89EF323991C4347F1928413BF32A8F2E /* StripHTML-dummy.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "StripHTML-dummy.m"; sourceTree = "<group>"; };
 		B4A4BF0A494D9C6253AF4E6EA39E6991 /* Pods-Bike-iT-acknowledgements.markdown */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; path = "Pods-Bike-iT-acknowledgements.markdown"; sourceTree = "<group>"; };
+		B7AF0BED33FA9AC3461E1C1E76502FE4 /* INTULocationRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = INTULocationRequest.m; path = LocationManager/INTULocationManager/INTULocationRequest.m; sourceTree = "<group>"; };
 		B8C2BB3C348CA3460B000C81EF53721F /* Pods-Bike-iT-frameworks.sh */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.script.sh; path = "Pods-Bike-iT-frameworks.sh"; sourceTree = "<group>"; };
 		B910D495D3F9E5E9E663898CF0D53C5E /* Pods-Bike-iT-acknowledgements.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = "Pods-Bike-iT-acknowledgements.plist"; sourceTree = "<group>"; };
 		BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = Podfile; path = ../Podfile; sourceTree = SOURCE_ROOT; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		C4B17DAAFED8FD6CD5C7D8F711BEB83B /* libINTULocationManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libINTULocationManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C57B39E120C1660C0FF9FEACE958B550 /* INTULocationRequestDefines.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = INTULocationRequestDefines.h; path = LocationManager/INTULocationManager/INTULocationRequestDefines.h; sourceTree = "<group>"; };
+		C7B27163C4924044DACE9EA4FC0183D0 /* INTULocationManager+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "INTULocationManager+Internal.h"; path = "LocationManager/INTULocationManager/INTULocationManager+Internal.h"; sourceTree = "<group>"; };
+		CC788EC858DC7ACF03EDA39890AD6295 /* INTUHeadingRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = INTUHeadingRequest.h; path = LocationManager/INTULocationManager/INTUHeadingRequest.h; sourceTree = "<group>"; };
+		DD99507DBC385B9D8377F78F9063A20F /* StripHTML.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = StripHTML.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		DE1CCC44E0EDDFF61B9659B639F25901 /* INTULocationManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = INTULocationManager.h; path = LocationManager/INTULocationManager/INTULocationManager.h; sourceTree = "<group>"; };
+		DF2DE7083F1A62B77CD73C044CC75A17 /* NSString+StripHTML.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; name = "NSString+StripHTML.h"; path = "Pod/Classes/NSString+StripHTML.h"; sourceTree = "<group>"; };
+		E0AEC365C52156E067CC77C85527BC04 /* libPods-Bike-iT.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Bike-iT.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F2EE2CF7EA198336D5B745583B5BCFAC /* Pods-Bike-iT.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Bike-iT.debug.xcconfig"; sourceTree = "<group>"; };
+		F86833AE54ED0852A4665D2C88A49561 /* NSString+StripHTML.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = "NSString+StripHTML.m"; path = "Pod/Classes/NSString+StripHTML.m"; sourceTree = "<group>"; };
 		FD446A2D4EC8E63D6DAB32BE1BE83B8F /* Pods-Bike-iT.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; path = "Pods-Bike-iT.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		F1FD3E128F765BF17F9AC1ECC0437CFC /* Frameworks */ = {
+		35A905F40EA721BA4498704BEF127D39 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8C519899E134103BF01E59B2A6425BA4 /* Foundation.framework in Frameworks */,
+				04E9254506E142F2DD0648141E78DFBD /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		38510B533EF2DB014948FA17389F31EE /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8F6EA8DF4AA2C91F2E86882DAB0D7CEB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3B842DF9C7552A3F6AEF2852F4BBF767 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C4FA0C6B5FC9A1520E519BC4E9830533 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6DDDB1DC5EAF58CFBDC96D142532D5A /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -46,20 +130,32 @@
 			name = "Targets Support Files";
 			sourceTree = "<group>";
 		};
-		552C04C99B9EC7FD6897DEAA23CA97B2 /* Frameworks */ = {
+		3CCAC3BB4EB425B50A18EF9B89D96ECC /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
-				213B1724C62BE8BC65F92A9BC1A24B5B /* GoogleMaps.framework */,
+				48E7805EF0506F296943488C36903115 /* StripHTML.xcconfig */,
+				89EF323991C4347F1928413BF32A8F2E /* StripHTML-dummy.m */,
+				285182157465D6D937BE25E61CDF0C89 /* StripHTML-prefix.pch */,
 			);
-			name = Frameworks;
+			name = "Support Files";
+			path = "../Target Support Files/StripHTML";
 			sourceTree = "<group>";
 		};
-		6B9DDBFD34805D0CECB3FE7AA6B7B594 /* Pods */ = {
+		51EA7F0978A1069D397AB10D2DE8E1D0 /* GoogleMaps */ = {
 			isa = PBXGroup;
 			children = (
-				AAA2E410E8C08C05E23E73307973F577 /* GoogleMaps */,
+				623AA5554339C5E4E0B895AD81C30091 /* Frameworks */,
+				B38C860EBCB2D495CA8F7D95E2E84F7C /* Resources */,
 			);
-			name = Pods;
+			path = GoogleMaps;
+			sourceTree = "<group>";
+		};
+		623AA5554339C5E4E0B895AD81C30091 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				0C21288E961B9717D779C1C1A8B3C584 /* GoogleMaps.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		7DB346D0F39D3F0E887471402A8071AB = {
@@ -67,19 +163,30 @@
 			children = (
 				BA6428E9F66FD5A23C0A2E06ED26CD2F /* Podfile */,
 				BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */,
-				6B9DDBFD34805D0CECB3FE7AA6B7B594 /* Pods */,
-				CD1D6490415447F939FDE8D98EE7F3FC /* Products */,
+				9FAF6B9451656866DC85659A50EC850D /* Pods */,
+				E14CB34EE52C897AA22C7F90E0EC40E1 /* Products */,
 				0B4A98836882194A67431BF8E45A4533 /* Targets Support Files */,
 			);
 			sourceTree = "<group>";
 		};
-		AAA2E410E8C08C05E23E73307973F577 /* GoogleMaps */ = {
+		98FE83A585D6D2FE8E1E5DFB4F0F66FE /* StripHTML */ = {
 			isa = PBXGroup;
 			children = (
-				552C04C99B9EC7FD6897DEAA23CA97B2 /* Frameworks */,
-				BA6CC55F7C3DC98EA32DB381E76D8A4B /* Resources */,
+				DF2DE7083F1A62B77CD73C044CC75A17 /* NSString+StripHTML.h */,
+				F86833AE54ED0852A4665D2C88A49561 /* NSString+StripHTML.m */,
+				3CCAC3BB4EB425B50A18EF9B89D96ECC /* Support Files */,
 			);
-			path = GoogleMaps;
+			path = StripHTML;
+			sourceTree = "<group>";
+		};
+		9FAF6B9451656866DC85659A50EC850D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				51EA7F0978A1069D397AB10D2DE8E1D0 /* GoogleMaps */,
+				B4089DBBB2020FE09AD89D393C02CDD0 /* INTULocationManager */,
+				98FE83A585D6D2FE8E1E5DFB4F0F66FE /* StripHTML */,
+			);
+			name = Pods;
 			sourceTree = "<group>";
 		};
 		AE8CFD21032830645849B811D58BE9D8 /* Pods-Bike-iT */ = {
@@ -97,12 +204,30 @@
 			path = "Target Support Files/Pods-Bike-iT";
 			sourceTree = "<group>";
 		};
-		BA6CC55F7C3DC98EA32DB381E76D8A4B /* Resources */ = {
+		B38C860EBCB2D495CA8F7D95E2E84F7C /* Resources */ = {
 			isa = PBXGroup;
 			children = (
-				9E17161130B27DB46F01569D1C6C5443 /* GoogleMaps.bundle */,
+				2912FFDDB9EEE3A3AA375E0EC6D80ADD /* GoogleMaps.bundle */,
 			);
 			name = Resources;
+			sourceTree = "<group>";
+		};
+		B4089DBBB2020FE09AD89D393C02CDD0 /* INTULocationManager */ = {
+			isa = PBXGroup;
+			children = (
+				CC788EC858DC7ACF03EDA39890AD6295 /* INTUHeadingRequest.h */,
+				31D76BE1E14F4B8DEA19518B468FDD25 /* INTUHeadingRequest.m */,
+				DE1CCC44E0EDDFF61B9659B639F25901 /* INTULocationManager.h */,
+				3EDEBF0504F079A6B044E550C72632C1 /* INTULocationManager.m */,
+				C7B27163C4924044DACE9EA4FC0183D0 /* INTULocationManager+Internal.h */,
+				1408000254BA3FE3E6599206514A9DCC /* INTULocationRequest.h */,
+				B7AF0BED33FA9AC3461E1C1E76502FE4 /* INTULocationRequest.m */,
+				C57B39E120C1660C0FF9FEACE958B550 /* INTULocationRequestDefines.h */,
+				85A75C341C2135EB491A313A604F5A11 /* INTURequestIDGenerator.h */,
+				3E8AD50DDAC630AA5D4E778933253A05 /* INTURequestIDGenerator.m */,
+				EC9455DA89D303BC561889D9FB83C938 /* Support Files */,
+			);
+			path = INTULocationManager;
 			sourceTree = "<group>";
 		};
 		BC3CA7F9E30CC8F7E2DD044DD34432FC /* Frameworks */ = {
@@ -121,31 +246,123 @@
 			name = iOS;
 			sourceTree = "<group>";
 		};
-		CD1D6490415447F939FDE8D98EE7F3FC /* Products */ = {
+		E14CB34EE52C897AA22C7F90E0EC40E1 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				A5D0F8AABD608419BB159D533F066DC7 /* libPods-Bike-iT.a */,
+				C4B17DAAFED8FD6CD5C7D8F711BEB83B /* libINTULocationManager.a */,
+				E0AEC365C52156E067CC77C85527BC04 /* libPods-Bike-iT.a */,
+				0F8777468D2B34CB7E25269C78F0964F /* libStripHTML.a */,
+				DD99507DBC385B9D8377F78F9063A20F /* StripHTML.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
+		EC9455DA89D303BC561889D9FB83C938 /* Support Files */ = {
+			isa = PBXGroup;
+			children = (
+				6CCB132F361D7C7307079FBECBA305D8 /* INTULocationManager.xcconfig */,
+				829CD2C7A4A5E380A55A65D1DD63E485 /* INTULocationManager-dummy.m */,
+				16ACC6528708FFEBE365042A3D5B2F0B /* INTULocationManager-prefix.pch */,
+			);
+			name = "Support Files";
+			path = "../Target Support Files/INTULocationManager";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		689F0DF11C42164D06B57C7B4614050D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52445C3597AB1BFBDE72D75461581A09 /* NSString+StripHTML.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E32A6A27F2976714C0D47AF442F7C8E0 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A36E68C4CEDFC13260228BAE7F57881C /* INTUHeadingRequest.h in Headers */,
+				76F90EE2D28AB19554A0D10E43462370 /* INTULocationManager+Internal.h in Headers */,
+				CFFC1D97C028CC13F8C712173BEC6367 /* INTULocationManager.h in Headers */,
+				2E0EF893B8843D4C7EA4E979F1CA60CC /* INTULocationRequest.h in Headers */,
+				BB8840C11EDC92B798C16B2008503345 /* INTULocationRequestDefines.h in Headers */,
+				7B1E429845B9563A9F5EA367C3758411 /* INTURequestIDGenerator.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		B035A1E536B559668A5952A0F7DE8627 /* Pods-Bike-iT */ = {
+		307E129916E88C119B8D2307A7D2C729 /* StripHTML */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C86490B6BAAE8AC59E6E3ACF65EE97C7 /* Build configuration list for PBXNativeTarget "Pods-Bike-iT" */;
+			buildConfigurationList = EAB49E245BC9DEC8ABEBF6B590C1DD2C /* Build configuration list for PBXNativeTarget "StripHTML" */;
 			buildPhases = (
-				BEAAF244097496E659A34EC06451E4F0 /* Sources */,
-				F1FD3E128F765BF17F9AC1ECC0437CFC /* Frameworks */,
+				0B908AF14BC13333504FC8BAD178C3F8 /* Sources */,
+				35A905F40EA721BA4498704BEF127D39 /* Frameworks */,
+				689F0DF11C42164D06B57C7B4614050D /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				76B9A46FD2010F202DA25639D6179E15 /* PBXTargetDependency */,
+			);
+			name = StripHTML;
+			productName = StripHTML;
+			productReference = 0F8777468D2B34CB7E25269C78F0964F /* libStripHTML.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		76A88C9054AD7ADB60B9BA7618D3F48D /* StripHTML-StripHTML */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = D6F8B4A01B90183870883125F5D8C252 /* Build configuration list for PBXNativeTarget "StripHTML-StripHTML" */;
+			buildPhases = (
+				FFDE4750DE6C40201148186A7C648A9A /* Sources */,
+				38510B533EF2DB014948FA17389F31EE /* Frameworks */,
+				F848AFCA22E28058650A51E2BEB3A319 /* Resources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
+			name = "StripHTML-StripHTML";
+			productName = "StripHTML-StripHTML";
+			productReference = DD99507DBC385B9D8377F78F9063A20F /* StripHTML.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		AC4577F9BF4EFBD80E0D893D170797B1 /* Pods-Bike-iT */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7BF3C23A67B6524CAEC52D365E65B81C /* Build configuration list for PBXNativeTarget "Pods-Bike-iT" */;
+			buildPhases = (
+				A4C9901F9130EB0F98474DFE9E68BE9A /* Sources */,
+				C4FA0C6B5FC9A1520E519BC4E9830533 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				1FF0C113E99A518155F1FEC788E2844A /* PBXTargetDependency */,
+				CD6D688242CEB890BF96883C396C8DD6 /* PBXTargetDependency */,
+			);
 			name = "Pods-Bike-iT";
 			productName = "Pods-Bike-iT";
-			productReference = A5D0F8AABD608419BB159D533F066DC7 /* libPods-Bike-iT.a */;
+			productReference = E0AEC365C52156E067CC77C85527BC04 /* libPods-Bike-iT.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		E07A1B93D0B5E99C6E979FACDA81D9B4 /* INTULocationManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FF87CB73FE66AAA5CF4BB9A7A158023D /* Build configuration list for PBXNativeTarget "INTULocationManager" */;
+			buildPhases = (
+				B08A1078AC5AFE1A86CEDA533FB8B88E /* Sources */,
+				8F6EA8DF4AA2C91F2E86882DAB0D7CEB /* Frameworks */,
+				E32A6A27F2976714C0D47AF442F7C8E0 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = INTULocationManager;
+			productName = INTULocationManager;
+			productReference = C4B17DAAFED8FD6CD5C7D8F711BEB83B /* libINTULocationManager.a */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -165,28 +382,90 @@
 				en,
 			);
 			mainGroup = 7DB346D0F39D3F0E887471402A8071AB;
-			productRefGroup = CD1D6490415447F939FDE8D98EE7F3FC /* Products */;
+			productRefGroup = E14CB34EE52C897AA22C7F90E0EC40E1 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				B035A1E536B559668A5952A0F7DE8627 /* Pods-Bike-iT */,
+				E07A1B93D0B5E99C6E979FACDA81D9B4 /* INTULocationManager */,
+				AC4577F9BF4EFBD80E0D893D170797B1 /* Pods-Bike-iT */,
+				307E129916E88C119B8D2307A7D2C729 /* StripHTML */,
+				76A88C9054AD7ADB60B9BA7618D3F48D /* StripHTML-StripHTML */,
 			);
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		F848AFCA22E28058650A51E2BEB3A319 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
-		BEAAF244097496E659A34EC06451E4F0 /* Sources */ = {
+		0B908AF14BC13333504FC8BAD178C3F8 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9CDCD10C20E44DC395DB3BE99B7D6E26 /* Pods-Bike-iT-dummy.m in Sources */,
+				0ABE3863AA7194885AE5A65BC9F68292 /* NSString+StripHTML.m in Sources */,
+				9A6D52246B1CB6837C9F9B403EB34D7A /* StripHTML-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4C9901F9130EB0F98474DFE9E68BE9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D482EA9F0771C200EABDB87E8654EF11 /* Pods-Bike-iT-dummy.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B08A1078AC5AFE1A86CEDA533FB8B88E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				66D0583075C56B7024826FB9D8FAEDC2 /* INTUHeadingRequest.m in Sources */,
+				F180C99A07A325C35BCF659770E61140 /* INTULocationManager-dummy.m in Sources */,
+				47203760BB9DF52FD65477D97268A3AA /* INTULocationManager.m in Sources */,
+				D0C3E9B513CBD10BF34F44A380DCEB77 /* INTULocationRequest.m in Sources */,
+				B94B56B836DA079EE6F98300E9EF97C8 /* INTURequestIDGenerator.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FFDE4750DE6C40201148186A7C648A9A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		1FF0C113E99A518155F1FEC788E2844A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = INTULocationManager;
+			target = E07A1B93D0B5E99C6E979FACDA81D9B4 /* INTULocationManager */;
+			targetProxy = E7BF4A6ECA76C6CAEBD7DF2F9F793222 /* PBXContainerItemProxy */;
+		};
+		76B9A46FD2010F202DA25639D6179E15 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "StripHTML-StripHTML";
+			target = 76A88C9054AD7ADB60B9BA7618D3F48D /* StripHTML-StripHTML */;
+			targetProxy = AF648137E420D05BEAFFA1BD1F20A957 /* PBXContainerItemProxy */;
+		};
+		CD6D688242CEB890BF96883C396C8DD6 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = StripHTML;
+			target = 307E129916E88C119B8D2307A7D2C729 /* StripHTML */;
+			targetProxy = 80DC485635CE4F4CFE0AD814B244156C /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
-		1F5E0F7DE3612C72249B9DAF63E2EA1A /* Debug */ = {
+		0D7F9955E7A318F5A5C8E7D838E32025 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = F2EE2CF7EA198336D5B745583B5BCFAC /* Pods-Bike-iT.debug.xcconfig */;
 			buildSettings = {
@@ -202,6 +481,53 @@
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
+		};
+		2B8BBC4D77EAC267911640D6F5057DC1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48E7805EF0506F296943488C36903115 /* StripHTML.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/StripHTML/StripHTML-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		537E21F67DE502CD8B965BD3A254433E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48E7805EF0506F296943488C36903115 /* StripHTML.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = StripHTML;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		55DB147904C23066BBA0AEE779D9B871 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = FD446A2D4EC8E63D6DAB32BE1BE83B8F /* Pods-Bike-iT.release.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PODS_ROOT = "$(SRCROOT)";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
 		};
 		5CE5176205D06FF3FFE3DDDA9291E44B /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -242,6 +568,18 @@
 			};
 			name = Debug;
 		};
+		61363CB28CCDD3ED105C0B30603058EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48E7805EF0506F296943488C36903115 /* StripHTML.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				PRODUCT_NAME = StripHTML;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 		74857149DC1E0D599B8A01A78349A926 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -276,18 +614,55 @@
 			};
 			name = Release;
 		};
-		AECDEFDF7A2891247569A853A828865B /* Release */ = {
+		8914739F6F88AA9F6706E8280F5CF5E0 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FD446A2D4EC8E63D6DAB32BE1BE83B8F /* Pods-Bike-iT.release.xcconfig */;
+			baseConfigurationReference = 6CCB132F361D7C7307079FBECBA305D8 /* INTULocationManager.xcconfig */;
 			buildSettings = {
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/INTULocationManager/INTULocationManager-prefix.pch";
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACH_O_TYPE = staticlib;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		B8BE54407A402AE35D8CA58E7DF9EF75 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 6CCB132F361D7C7307079FBECBA305D8 /* INTULocationManager.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/INTULocationManager/INTULocationManager-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				OTHER_LIBTOOLFLAGS = "";
-				PODS_ROOT = "$(SRCROOT)";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		C45D027974840F8E3801BA71AD86825F /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 48E7805EF0506F296943488C36903115 /* StripHTML.xcconfig */;
+			buildSettings = {
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_PREFIX_HEADER = "Target Support Files/StripHTML/StripHTML-prefix.pch";
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
+				OTHER_LIBTOOLFLAGS = "";
+				PRIVATE_HEADERS_FOLDER_PATH = "";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 			};
@@ -305,11 +680,38 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C86490B6BAAE8AC59E6E3ACF65EE97C7 /* Build configuration list for PBXNativeTarget "Pods-Bike-iT" */ = {
+		7BF3C23A67B6524CAEC52D365E65B81C /* Build configuration list for PBXNativeTarget "Pods-Bike-iT" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1F5E0F7DE3612C72249B9DAF63E2EA1A /* Debug */,
-				AECDEFDF7A2891247569A853A828865B /* Release */,
+				0D7F9955E7A318F5A5C8E7D838E32025 /* Debug */,
+				55DB147904C23066BBA0AEE779D9B871 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		D6F8B4A01B90183870883125F5D8C252 /* Build configuration list for PBXNativeTarget "StripHTML-StripHTML" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				537E21F67DE502CD8B965BD3A254433E /* Debug */,
+				61363CB28CCDD3ED105C0B30603058EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		EAB49E245BC9DEC8ABEBF6B590C1DD2C /* Build configuration list for PBXNativeTarget "StripHTML" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2B8BBC4D77EAC267911640D6F5057DC1 /* Debug */,
+				C45D027974840F8E3801BA71AD86825F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FF87CB73FE66AAA5CF4BB9A7A158023D /* Build configuration list for PBXNativeTarget "INTULocationManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8914739F6F88AA9F6706E8280F5CF5E0 /* Debug */,
+				B8BE54407A402AE35D8CA58E7DF9EF75 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

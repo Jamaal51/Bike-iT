@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '0A7863380DB09D50A7E19693'
-               BlueprintName = 'Pods-Bike-iT'
+               BlueprintIdentifier = 'E3406A0DE81AC0E6299F4DE3'
+               BlueprintName = 'INTULocationManager'
                ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'libPods-Bike-iT.a'>
+               BuildableName = 'libINTULocationManager.a'>
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

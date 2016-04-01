@@ -9,10 +9,10 @@
 /* Begin PBXBuildFile section */
 		9A67B3A91CAD7DCA0028586B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A67B3A81CAD7DCA0028586B /* main.m */; };
 		9A67B3AC1CAD7DCA0028586B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A67B3AB1CAD7DCA0028586B /* AppDelegate.m */; };
-		9A67B3AF1CAD7DCA0028586B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A67B3AE1CAD7DCA0028586B /* ViewController.m */; };
 		9A67B3B21CAD7DCA0028586B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A67B3B01CAD7DCA0028586B /* Main.storyboard */; };
 		9A67B3B41CAD7DCA0028586B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A67B3B31CAD7DCA0028586B /* Assets.xcassets */; };
 		9A67B3B71CAD7DCA0028586B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A67B3B51CAD7DCA0028586B /* LaunchScreen.storyboard */; };
+		9A67B3C01CAF2CAF0028586B /* BikeMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A67B3BF1CAF2CAF0028586B /* BikeMapViewController.m */; };
 		C72D923374A4D78135CDE64C /* libPods-Bike-iT.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95F2CE6D46600A65BB046095 /* libPods-Bike-iT.a */; };
 /* End PBXBuildFile section */
 
@@ -24,12 +24,12 @@
 		9A67B3A81CAD7DCA0028586B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9A67B3AA1CAD7DCA0028586B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		9A67B3AB1CAD7DCA0028586B /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		9A67B3AD1CAD7DCA0028586B /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		9A67B3AE1CAD7DCA0028586B /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		9A67B3B11CAD7DCA0028586B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		9A67B3B31CAD7DCA0028586B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A67B3B61CAD7DCA0028586B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A67B3B81CAD7DCA0028586B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9A67B3BE1CAF2CAF0028586B /* BikeMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BikeMapViewController.h; sourceTree = "<group>"; };
+		9A67B3BF1CAF2CAF0028586B /* BikeMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BikeMapViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,8 +84,8 @@
 			children = (
 				9A67B3AA1CAD7DCA0028586B /* AppDelegate.h */,
 				9A67B3AB1CAD7DCA0028586B /* AppDelegate.m */,
-				9A67B3AD1CAD7DCA0028586B /* ViewController.h */,
-				9A67B3AE1CAD7DCA0028586B /* ViewController.m */,
+				9A67B3BE1CAF2CAF0028586B /* BikeMapViewController.h */,
+				9A67B3BF1CAF2CAF0028586B /* BikeMapViewController.m */,
 				9A67B3B01CAD7DCA0028586B /* Main.storyboard */,
 				9A67B3B31CAD7DCA0028586B /* Assets.xcassets */,
 				9A67B3B51CAD7DCA0028586B /* LaunchScreen.storyboard */,
@@ -225,7 +225,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A67B3AF1CAD7DCA0028586B /* ViewController.m in Sources */,
+				9A67B3C01CAF2CAF0028586B /* BikeMapViewController.m in Sources */,
 				9A67B3AC1CAD7DCA0028586B /* AppDelegate.m in Sources */,
 				9A67B3A91CAD7DCA0028586B /* main.m in Sources */,
 			);
