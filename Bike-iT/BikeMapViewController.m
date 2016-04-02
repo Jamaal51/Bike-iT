@@ -21,12 +21,15 @@ GMSAutocompleteViewControllerDelegate
 @property (strong, nonatomic) IBOutlet UIButton *destinationButton;
 
 @property (strong, nonatomic) CLLocationManager *locationManager;
-@property (nonatomic) NSString *currentLocationString;
 
-@property (nonatomic) GMSPlace *origin;
+@property (nonatomic) CLLocation *currentLoc;
+@property (nonatomic) GMSPlace *otherOrigin;
 @property (nonatomic) GMSPlace *destination;
 @property (nonatomic) BOOL returnOrigin;
 @property (nonatomic) BOOL returnDestination;
+
+@property (nonatomic) GMSMarker *destinationMarker;
+@property (nonatomic) GMSMarker *originMarker;
 
 @end
 
@@ -62,23 +65,21 @@ GMSAutocompleteViewControllerDelegate
     [locationMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyCity
                                             timeout:10.0 block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
                                                 if (status == INTULocationStatusSuccess){
-                                                    // NSLog(@"Current Location: %@", currentLocation);
-                                                    self.currentLocationString = [NSString stringWithFormat:@"ll=%f,%f",currentLocation.coordinate.latitude, currentLocation.coordinate.longitude];
                                                     
+                                                    self.currentLoc = currentLocation;
                                                     
-                                                    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:currentLocation.coordinate.latitude
-                                                                                                            longitude:currentLocation.coordinate.longitude
+                                                    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.currentLoc.coordinate.latitude
+                                                                                                            longitude:self.currentLoc.coordinate.longitude
                                                                                                                  zoom:16];
                                                     
                                                     
                                                     [self.mapView setCamera:camera];
                                                     
-                                                    CLLocationCoordinate2D position = CLLocationCoordinate2DMake(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
-                                                    GMSMarker *marker = [GMSMarker markerWithPosition:position];
-                                                    marker.title = @"You're Here";
-                                                    marker.map = self.mapView;
-                                            
-                                                    NSLog(@"Our Location: %@",self.currentLocationString);
+                                                    CLLocationCoordinate2D position = CLLocationCoordinate2DMake(self.currentLoc.coordinate.latitude, self.currentLoc.coordinate.longitude);
+                                                    self.originMarker = [GMSMarker markerWithPosition:position];
+                                                    self.originMarker.title = @"Start";
+                                                    self.originMarker.map = self.mapView;
+   
                                                     
                                                 } else if (status == INTULocationStatusTimedOut){
                                                     
@@ -86,6 +87,31 @@ GMSAutocompleteViewControllerDelegate
                                                     NSLog(@"Error");
                                                 }
                                             }];
+}
+
+- (void) addMapMarker:(GMSPlace*)googlePlace isOrigin:(BOOL)origin{
+    
+    CLLocationCoordinate2D position = CLLocationCoordinate2DMake(googlePlace.coordinate.latitude, googlePlace.coordinate.longitude);
+    
+    if (origin == true){
+        //CLLocationCoordinate2D position = CLLocationCoordinate2DMake(<#CLLocationDegrees latitude#>, <#CLLocationDegrees longitude#>)
+        self.originMarker.map = nil;
+        self.originMarker = [GMSMarker markerWithPosition:position];
+        self.originMarker.title = [NSString stringWithFormat:@"%@", googlePlace.name];
+        self.destinationMarker.appearAnimation = kGMSMarkerAnimationPop;
+        self.originMarker.map = self.mapView;
+        
+    } else {
+        self.destinationMarker.map = nil;
+        // CLLocationCoordinate2D position = CLLocationCoordinate2DMake(googlePlace.coordinate.latitude, googlePlace.coordinate.longitude);
+        self.destinationMarker = [GMSMarker markerWithPosition:position];
+        self.destinationMarker.title = [NSString stringWithFormat:@"%@",googlePlace.name];
+        //self.destinationMarker.icon = [UIImage imageNamed:@"icon2"];
+        self.destinationMarker.icon = [GMSMarker markerImageWithColor:[UIColor blueColor]];
+        self.destinationMarker.appearAnimation = kGMSMarkerAnimationPop;
+        self.destinationMarker.map = self.mapView;
+        
+    }
 }
 
 #pragma mark - AutoComplete Delegates
@@ -111,13 +137,19 @@ didAutocompleteWithPlace:(GMSPlace *)place {
     [self dismissViewControllerAnimated:YES completion:nil];
 
     if (self.returnOrigin == TRUE){
-        self.origin = place;
-        [self.originButton setTitle: self.origin.name forState:UIControlStateNormal];
-        NSLog(@"Origin: %@", self.origin.name);
-        NSLog(@"Origin Coord: %f, %f", self.origin.coordinate.latitude, self.origin.coordinate.longitude);
-        NSLog(@"Origin Address: %@", self.origin.formattedAddress);
+        self.otherOrigin = place;
+        [self.originButton setTitle: self.otherOrigin.name forState:UIControlStateNormal];
+        
+        [self addMapMarker:place isOrigin:true];
+        
+        NSLog(@"Origin: %@", self.otherOrigin.name);
+        NSLog(@"Origin Coord: %f, %f", self.otherOrigin.coordinate.latitude, self.otherOrigin.coordinate.longitude);
+        NSLog(@"Origin Address: %@", self.otherOrigin.formattedAddress);
     } else if (self.returnDestination == TRUE){
         self.destination = place;
+        
+        [self addMapMarker:place isOrigin:false];
+    
         [self.destinationButton setTitle:self.destination.name forState:UIControlStateNormal];
         NSLog(@"Dest: %@", self.destination.name);
         NSLog(@"Dest Coord: %f, %f", self.destination.coordinate.latitude, self.destination.coordinate.longitude);
@@ -168,10 +200,10 @@ didFailAutocompleteWithError:(NSError *)error {
             NSLog(@"Current PlaceID %@", place.placeID);
         }
         
-        self.origin = likelihoodList.likelihoods.firstObject.place;
+        self.otherOrigin = likelihoodList.likelihoods.firstObject.place;
        
-        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.origin.coordinate.latitude
-                                                                longitude:self.origin.coordinate.longitude
+        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.otherOrigin.coordinate.latitude
+                                                                longitude:self.otherOrigin.coordinate.longitude
                                                                      zoom:16];
         
         
