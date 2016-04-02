@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>AFNetworking.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>INTULocationManager.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,22 +32,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>307E129916E88C119B8D2307A7D2C729</key>
+		<key>90244A2BE7C881847E36B63CFA3ED11D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>76A88C9054AD7ADB60B9BA7618D3F48D</key>
+		<key>928353533005A4198EBDA5B700D37B64</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AC4577F9BF4EFBD80E0D893D170797B1</key>
+		<key>D975F5C284CDB025EE35CDA5D845DEB4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E07A1B93D0B5E99C6E979FACDA81D9B4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ED988303980202C5DEE1F04D3EE6861F</key>
 		<dict>
 			<key>primary</key>
 			<true/>
