@@ -46,7 +46,7 @@ GMSAutocompleteViewControllerDelegate
 - (void)getCurrentLocation {
     
         //instantiate CLLocation
-        if (self.locationManager == nil){
+    if (self.locationManager == nil){
             self.locationManager = [[CLLocationManager alloc]init];
         }
         self.locationManager.delegate = self;
@@ -70,8 +70,6 @@ GMSAutocompleteViewControllerDelegate
                                                                                                             longitude:currentLocation.coordinate.longitude
                                                                                                                  zoom:16];
                                                     
-                                                    
-                                    
                                                     
                                                     [self.mapView setCamera:camera];
                                                     
@@ -170,7 +168,19 @@ didFailAutocompleteWithError:(NSError *)error {
             NSLog(@"Current PlaceID %@", place.placeID);
         }
         
+        self.origin = likelihoodList.likelihoods.firstObject.place;
+       
+        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.origin.coordinate.latitude
+                                                                longitude:self.origin.coordinate.longitude
+                                                                     zoom:16];
+        
+        
+        [self.mapView setCamera:camera];
+        
+
     }];
+    
+    
 }
 
 
