@@ -56,7 +56,7 @@ CLLocationManagerDelegate
                                                     
                                                     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:currentLocation.coordinate.latitude
                                                                                                             longitude:currentLocation.coordinate.longitude
-                                                                                                                 zoom:12];
+                                                                                                                 zoom:16];
                                                     
                                                     
                                                     
@@ -64,7 +64,12 @@ CLLocationManagerDelegate
                                                     
                                                     [self.mapView setCamera:camera];
                                                     
-                                                
+                                                    CLLocationCoordinate2D position = CLLocationCoordinate2DMake(currentLocation.coordinate.latitude, currentLocation.coordinate.longitude);
+                                                    GMSMarker *marker = [GMSMarker markerWithPosition:position];
+                                                    marker.title = @"You're Here";
+                                                    marker.map = self.mapView;
+                                        
+                                
 
                                                     
                                                     NSLog(@"Our Location: %@",self.currentLocationString);
