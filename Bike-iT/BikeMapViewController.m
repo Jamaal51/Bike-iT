@@ -59,8 +59,7 @@ CLLocationManagerDelegate
                                                                                                                  zoom:16];
                                                     
                                                     
-                                                    
-                                                      // self.mapView = [GMSMapView mapWithFrame:CGRectZero camera:camera];
+                                    
                                                     
                                                     [self.mapView setCamera:camera];
                                                     
@@ -68,10 +67,7 @@ CLLocationManagerDelegate
                                                     GMSMarker *marker = [GMSMarker markerWithPosition:position];
                                                     marker.title = @"You're Here";
                                                     marker.map = self.mapView;
-                                        
-                                
-
-                                                    
+                                            
                                                     NSLog(@"Our Location: %@",self.currentLocationString);
                                                     
                                                 } else if (status == INTULocationStatusTimedOut){
