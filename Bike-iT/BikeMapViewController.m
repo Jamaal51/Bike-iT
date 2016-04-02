@@ -14,6 +14,7 @@ UITextFieldDelegate,
 CLLocationManagerDelegate,
 GMSAutocompleteViewControllerDelegate
 >
+@property (strong, nonatomic) IBOutlet UIView *bottomStatsView;
 @property (strong, nonatomic) IBOutlet UIView *toAndFromView;
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
 @property (strong, nonatomic) IBOutlet UIView *bottomView;
@@ -38,13 +39,29 @@ GMSAutocompleteViewControllerDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self.mapView insertSubview:self.toAndFromView aboveSubview:self.mapView];
-    [self.mapView insertSubview:self.bottomView aboveSubview:self.mapView];
+    [self.mapView addSubview:self.toAndFromView];
+    [self.mapView addSubview:self.bottomView];
+    [self.mapView addSubview:self.bottomStatsView];
+    
+    CGRect frame = self.bottomStatsView.frame;
+    frame.origin.x -= 300;
+    self.bottomStatsView.frame = frame;
+    
     
     [self getCurrentLocation];
     
     //[self testCurrent];
 }
+
+- (void)viewDidAppear:(BOOL)animated{
+    [super viewDidAppear:animated];
+    
+//    CGRect startFrame = self.bottomStatsView.frame;
+//    startFrame.origin.x -= 400;
+//    self.bottomStatsView.frame = startFrame;
+    
+}
+
 - (IBAction)bikeButtonTapped:(UIButton *)sender {
 
     CLLocationCoordinate2D origin;
@@ -66,6 +83,39 @@ GMSAutocompleteViewControllerDelegate
     
     [self.mapView animateToCameraPosition:camera];
 
+    [self startJourneyButtonAnimation];
+}
+
+#pragma mark - Animations
+
+- (void) startJourneyButtonAnimation {
+    // toAndFromView
+    [UIView animateWithDuration:0.2 animations:^{
+        //[self.toAndFromView removeFromSuperview];
+        CGRect newFrame = self.toAndFromView.frame;
+        newFrame.origin.y += 20;
+        self.toAndFromView.frame = newFrame;
+    }];
+    [UIView animateWithDuration: 0.3 delay:0.2 options:0 animations:^{
+        CGRect newFrame = self.toAndFromView.frame;
+        newFrame.origin.y -= 120;
+        self.toAndFromView.frame = newFrame;
+        } completion:nil];
+    
+    // bottomView
+    [UIView animateWithDuration:0.5 animations:^{
+        CGRect newFrame = self.bottomView.frame;
+        newFrame.origin.x += 250;
+        self.bottomView.frame = newFrame;
+    }];
+    
+    //bottomStatsView
+    [UIView animateWithDuration:0.5 animations:^{
+        CGRect newFrame = self.bottomStatsView.frame;
+        newFrame.origin.x += 400;
+        self.bottomStatsView.frame = newFrame;
+    }];
+    
 }
 
 - (void)makeNewBikeDirectionsAPIRequestwithOrigin:(CLLocationCoordinate2D)coord1
