@@ -131,11 +131,29 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ixc-UC-fN5" userLabel="BottomView">
-                                        <rect key="frame" x="100" y="525" width="490" height="50"/>
-                                        <color key="backgroundColor" red="0.85909880049999998" green="0.85909880049999998" blue="0.85909880049999998" alpha="1" colorSpace="calibratedRGB"/>
+                                        <rect key="frame" x="490" y="500" width="100" height="75"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="wordWrap" translatesAutoresizingMaskIntoConstraints="NO" id="dP7-3e-HPP">
+                                                <rect key="frame" x="0.0" y="0.0" width="100" height="75"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                                <size key="titleShadowOffset" width="2.2250738585072014e-308" height="2.2250738585072014e-308"/>
+                                                <state key="normal" title="Button" image="bike">
+                                                    <color key="titleShadowColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                                </state>
+                                                <connections>
+                                                    <action selector="bikeButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="KsL-JG-3id"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                        <color key="backgroundColor" red="1" green="0.92464776339999999" blue="0.41116674549999999" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="dP7-3e-HPP" secondAttribute="bottom" id="8SK-dx-Q3b"/>
+                                            <constraint firstItem="dP7-3e-HPP" firstAttribute="top" secondItem="Ixc-UC-fN5" secondAttribute="top" id="BZt-bL-Xat"/>
                                             <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="50" id="Ft8-ff-61A"/>
-                                            <constraint firstAttribute="height" constant="50" id="nB5-C6-Zg4"/>
+                                            <constraint firstItem="dP7-3e-HPP" firstAttribute="leading" secondItem="Ixc-UC-fN5" secondAttribute="leading" id="UtD-wy-xER"/>
+                                            <constraint firstAttribute="width" constant="100" id="eys-Fd-Noq"/>
+                                            <constraint firstAttribute="trailing" secondItem="dP7-3e-HPP" secondAttribute="trailing" id="hYW-fU-8Bh"/>
+                                            <constraint firstAttribute="height" constant="75" id="nB5-C6-Zg4"/>
                                         </constraints>
                                         <variation key="default">
                                             <mask key="constraints">
@@ -153,6 +171,11 @@
                                     <constraint firstItem="jeg-db-qGr" firstAttribute="top" secondItem="2Wh-7z-Cmm" secondAttribute="top" constant="10" id="dvC-UY-hII"/>
                                     <constraint firstAttribute="bottom" secondItem="Ixc-UC-fN5" secondAttribute="bottom" constant="5" id="rwB-BS-E8V"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="Uoa-Z6-2Ij"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
@@ -176,4 +199,7 @@
             <point key="canvasLocation" x="366" y="199"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="bike" width="256" height="256"/>
+    </resources>
 </document>

@@ -10,6 +10,7 @@
 #import <GoogleMaps/GoogleMaps.h>
 #import <INTULocationManager/INTULocationManager.h>
 #import <CoreLocation/CoreLocation.h>
+#import <AFNetworking/AFNetworking.h>
 
 @interface BikeMapViewController : UIViewController
 

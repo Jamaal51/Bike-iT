@@ -45,7 +45,41 @@ GMSAutocompleteViewControllerDelegate
     
     //[self testCurrent];
 }
+- (IBAction)bikeButtonTapped:(UIButton *)sender {
 
+    CLLocationCoordinate2D origin;
+    CLLocationCoordinate2D dest;
+    
+    if (self.otherOrigin == nil){
+        origin = CLLocationCoordinate2DMake(self.currentLoc.coordinate.latitude, self.currentLoc.coordinate.longitude);
+    } else {
+        origin = CLLocationCoordinate2DMake(self.otherOrigin.coordinate.latitude, self.otherOrigin.coordinate.longitude);
+    }
+    dest = CLLocationCoordinate2DMake(self.destination.coordinate.latitude, self.destination.coordinate.longitude);
+    
+    [self makeNewBikeDirectionsAPIRequestwithOrigin:origin destination:dest completionHandler:nil];
+    
+    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:dest.latitude
+                                                            longitude:dest.longitude
+                                                                 zoom:15];
+    
+    
+    [self.mapView animateToCameraPosition:camera];
+
+}
+
+- (void)makeNewBikeDirectionsAPIRequestwithOrigin:(CLLocationCoordinate2D)coord1
+                                      destination:(CLLocationCoordinate2D)coord2
+                                completionHandler:(void(^)())block {
+    
+    
+    NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&mode=bicycling&sensor=true&key=AIzaSyAd1r6-rsY8RMiF4iXNjoF9quj999DSiaQ",coord1.latitude,coord1.longitude,coord2.latitude,coord2.longitude];
+    
+    NSString *encodedString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    
+    NSLog(@"%@", encodedString);
+    
+}
 - (void)getCurrentLocation {
     
         //instantiate CLLocation
