@@ -161,14 +161,6 @@
                                             </mask>
                                         </variation>
                                     </view>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Oys-uo-PmK" userLabel="BottomStatsView">
-                                        <rect key="frame" x="390" y="475" width="200" height="100"/>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="100" id="i2h-gM-aIi"/>
-                                            <constraint firstAttribute="width" constant="200" id="wfH-aC-yAi"/>
-                                        </constraints>
-                                    </view>
                                 </subviews>
                                 <color key="backgroundColor" red="0.75457596599999999" green="0.86496030550000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -177,9 +169,7 @@
                                     <constraint firstItem="jeg-db-qGr" firstAttribute="leading" secondItem="2Wh-7z-Cmm" secondAttribute="leading" constant="10" id="QpM-dk-ei2"/>
                                     <constraint firstAttribute="trailing" secondItem="jeg-db-qGr" secondAttribute="trailing" constant="10" id="TaS-fc-rAr"/>
                                     <constraint firstItem="Ixc-UC-fN5" firstAttribute="leading" secondItem="2Wh-7z-Cmm" secondAttribute="leading" constant="100" id="Uoa-Z6-2Ij"/>
-                                    <constraint firstAttribute="bottom" secondItem="Oys-uo-PmK" secondAttribute="bottom" constant="5" id="Xdn-ga-pwe"/>
                                     <constraint firstItem="jeg-db-qGr" firstAttribute="top" secondItem="2Wh-7z-Cmm" secondAttribute="top" constant="10" id="dvC-UY-hII"/>
-                                    <constraint firstAttribute="trailing" secondItem="Oys-uo-PmK" secondAttribute="trailing" constant="10" id="gLM-No-ef3"/>
                                     <constraint firstAttribute="bottom" secondItem="Ixc-UC-fN5" secondAttribute="bottom" constant="5" id="rwB-BS-E8V"/>
                                 </constraints>
                                 <variation key="default">
@@ -199,7 +189,6 @@
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="bottomStatsView" destination="Oys-uo-PmK" id="ysk-7y-smL"/>
                         <outlet property="bottomView" destination="Ixc-UC-fN5" id="tZb-lX-lpe"/>
                         <outlet property="destinationButton" destination="h8E-JE-9OL" id="D5b-6g-JFT"/>
                         <outlet property="mapView" destination="2Wh-7z-Cmm" id="d4d-Ev-3A2"/>

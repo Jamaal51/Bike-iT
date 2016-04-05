@@ -11,6 +11,7 @@
 #import <INTULocationManager/INTULocationManager.h>
 #import <CoreLocation/CoreLocation.h>
 #import <AFNetworking/AFNetworking.h>
+#import <StripHTML/NSString+StripHTML.h>
 
 @interface BikeMapViewController : UIViewController
 

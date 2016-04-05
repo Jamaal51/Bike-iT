@@ -7,6 +7,7 @@
 //
 
 #import "BikeMapViewController.h"
+#import "CustomView.h"
 
 @interface BikeMapViewController ()
 <
@@ -32,6 +33,18 @@ GMSAutocompleteViewControllerDelegate
 @property (nonatomic) GMSMarker *destinationMarker;
 @property (nonatomic) GMSMarker *originMarker;
 
+@property (nonatomic) NSArray *steps;
+@property (nonatomic) GMSPolyline *polyline;
+@property (nonatomic) NSString *totalDistance;
+@property (nonatomic) NSString *totalDuration;
+@property (nonatomic) NSMutableArray *directionsArray;
+@property (nonatomic) NSMutableArray *distanceArray;
+@property (nonatomic) NSMutableArray *durationArray;
+@property (nonatomic) NSMutableArray *maneuverArray;
+@property (nonatomic) NSMutableArray *numberArray;
+
+
+
 @end
 
 @implementation BikeMapViewController
@@ -43,10 +56,6 @@ GMSAutocompleteViewControllerDelegate
     [self.mapView addSubview:self.bottomView];
     [self.mapView addSubview:self.bottomStatsView];
     
-    CGRect frame = self.bottomStatsView.frame;
-    frame.origin.x -= 300;
-    self.bottomStatsView.frame = frame;
-    
     
     [self getCurrentLocation];
     
@@ -56,80 +65,243 @@ GMSAutocompleteViewControllerDelegate
 - (void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     
-//    CGRect startFrame = self.bottomStatsView.frame;
-//    startFrame.origin.x -= 400;
-//    self.bottomStatsView.frame = startFrame;
-    
 }
 
 - (IBAction)bikeButtonTapped:(UIButton *)sender {
 
-    CLLocationCoordinate2D origin;
-    CLLocationCoordinate2D dest;
-    
-    if (self.otherOrigin == nil){
-        origin = CLLocationCoordinate2DMake(self.currentLoc.coordinate.latitude, self.currentLoc.coordinate.longitude);
-    } else {
-        origin = CLLocationCoordinate2DMake(self.otherOrigin.coordinate.latitude, self.otherOrigin.coordinate.longitude);
-    }
-    dest = CLLocationCoordinate2DMake(self.destination.coordinate.latitude, self.destination.coordinate.longitude);
-    
-    [self makeNewBikeDirectionsAPIRequestwithOrigin:origin destination:dest completionHandler:nil];
-    
-    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:dest.latitude
-                                                            longitude:dest.longitude
-                                                                 zoom:15];
-    
-    
-    [self.mapView animateToCameraPosition:camera];
+  //  [self startJourneyButtonAnimation:^{
+        CLLocationCoordinate2D origin;
+        CLLocationCoordinate2D dest;
+        
+        if (self.otherOrigin == nil){
+            origin = CLLocationCoordinate2DMake(self.currentLoc.coordinate.latitude, self.currentLoc.coordinate.longitude);
+        } else {
+            origin = CLLocationCoordinate2DMake(self.otherOrigin.coordinate.latitude, self.otherOrigin.coordinate.longitude);
+        }
+        dest = CLLocationCoordinate2DMake(self.destination.coordinate.latitude, self.destination.coordinate.longitude);
+        
+        //[self makeNewBikeDirectionsAPIRequestwithOrigin:origin destination:dest completionHandler:nil];
 
-    [self startJourneyButtonAnimation];
+        
+        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:dest.latitude
+                                                                longitude:dest.longitude
+                                                                     zoom:15];
+        
+        
+        [self.mapView animateToCameraPosition:camera];
+
+ //   }];
+    
+//    CLLocationCoordinate2D origin;
+//    CLLocationCoordinate2D dest;
+//    
+//    if (self.otherOrigin == nil){
+//        origin = CLLocationCoordinate2DMake(self.currentLoc.coordinate.latitude, self.currentLoc.coordinate.longitude);
+//    } else {
+//        origin = CLLocationCoordinate2DMake(self.otherOrigin.coordinate.latitude, self.otherOrigin.coordinate.longitude);
+//    }
+//    dest = CLLocationCoordinate2DMake(self.destination.coordinate.latitude, self.destination.coordinate.longitude);
+//    
+//    [self makeNewBikeDirectionsAPIRequestwithOrigin:origin destination:dest completionHandler:nil];
+//    
+//    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:dest.latitude
+//                                                            longitude:dest.longitude
+//                                                                 zoom:15];
+//    
+//    
+//    [self.mapView animateToCameraPosition:camera];
+    
+//    CustomView *cv = [[CustomView alloc]initWithFrame:CGRectMake(self.mapView.bounds.origin.x, self.mapView.bounds.origin.y, 200, 100)];   //create an instance of your custom view
+//    [self.mapView addSubview:cv];
+
 }
 
 #pragma mark - Animations
 
-- (void) startJourneyButtonAnimation {
+- (void) startJourneyButtonAnimation:(void(^)())block {
     // toAndFromView
-    [UIView animateWithDuration:0.2 animations:^{
-        //[self.toAndFromView removeFromSuperview];
-        CGRect newFrame = self.toAndFromView.frame;
-        newFrame.origin.y += 20;
-        self.toAndFromView.frame = newFrame;
-    }];
-    [UIView animateWithDuration: 0.3 delay:0.2 options:0 animations:^{
-        CGRect newFrame = self.toAndFromView.frame;
-        newFrame.origin.y -= 120;
-        self.toAndFromView.frame = newFrame;
-        } completion:nil];
+//    [UIView animateWithDuration:0.2 animations:^{
+//        //[self.toAndFromView removeFromSuperview];
+//        CGRect newFrame = self.toAndFromView.frame;
+//        newFrame.origin.y += 20;
+//        self.toAndFromView.frame = newFrame;
+//    }];
+
     
-    // bottomView
-    [UIView animateWithDuration:0.5 animations:^{
-        CGRect newFrame = self.bottomView.frame;
-        newFrame.origin.x += 250;
-        self.bottomView.frame = newFrame;
+    [UIView animateWithDuration: 1.0 animations:^{
+        CGRect newFrame = self.toAndFromView.frame;
+        newFrame.origin.y -= 200;
+        self.toAndFromView.frame = newFrame;
+        
     }];
     
+    [UIView animateWithDuration: 1.0 animations:^{
+        CGRect newFrame3 = self.bottomView.frame;
+        newFrame3.origin.x += 250;
+        self.bottomView.frame = newFrame3;
+        
+    }];
+    
+    NSArray *nib = [[NSBundle mainBundle] loadNibNamed:@"CustomView" owner:self options:nil];
+    
+    CGRect frame = self.mapView.frame;
+    frame.origin.x += 400;
+    
+    CustomView *view = [[CustomView alloc]initWithFrame:frame];
+    view.frame = frame;
+    
+    view = (CustomView *)[nib objectAtIndex:0];
+    
+    [self.mapView addSubview:view];
+    
+    
+//    [UIView animateWithDuration: 1.0 animations:^{
+            
+//        CGRect newFrame2 = cv.frame;
+//        newFrame2.origin.x += 400;
+//        cv.frame = newFrame2;
+
+        
+//        CGRect newFrame2 = self.bottomStatsView.frame;
+//        newFrame2.origin.x += 400;
+//        self.bottomStatsView.frame = newFrame2;
+
+//        }];
+    
+//    // bottomView
+//    [UIView animateWithDuration:0.5 animations:^{
+//        CGRect newFrame = self.bottomView.frame;
+//        newFrame.origin.x += 250;
+//        self.bottomView.frame = newFrame;
+//        
+//        CGRect newFrame2 = self.bottomStatsView.frame;
+//        newFrame2.origin.x += 400;
+//        self.bottomStatsView.frame = newFrame2;
+
+//    }];
+//    
     //bottomStatsView
-    [UIView animateWithDuration:0.5 animations:^{
-        CGRect newFrame = self.bottomStatsView.frame;
-        newFrame.origin.x += 400;
-        self.bottomStatsView.frame = newFrame;
-    }];
-    
+//    [UIView animateWithDuration:0.5 animations:^{
+//        CGRect newFrame = self.bottomStatsView.frame;
+//        newFrame.origin.x += 400;
+//        self.bottomStatsView.frame = newFrame;
+//    }];
+
 }
+
+//get directions in array to present in tableview
+//for (NSDictionary *step in self.steps){
+//    NSString *htmlInstructions = [step objectForKey:@"html_instructions"];
+//    NSString *taglessString = [htmlInstructions removeTags];
+//    NSLog(@"Parsed: %@", taglessString);
+//    
+//    
+//    NSString *distance = step[@"distance"][@"text"];
+//    NSString *duration = step[@"duration"][@"text"];
+//    if (step[@"maneuver"] == nil){
+//        maneuver = @"";
+//    } else {
+//        maneuver = step[@"maneuver"];
+//    }
+//    directionsCount++;
+//    
+//    [self.directionsArray addObject:taglessString]; //method created in NSString+NSString_Sanitize
+//    [self.distanceArray addObject:distance];
+//    [self.durationArray addObject:duration];
+//    [self.maneuverArray addObject:maneuver];
+//    [self.numberArray addObject:[NSNumber numberWithInteger:directionsCount]];
+//}
+//
+//GMSPath *path =[GMSPath pathFromEncodedPath:
+//                json[@"routes"][0][@"overview_polyline"][@"points"]];
+//self.polyline = [GMSPolyline polylineWithPath:path];
+//self.polyline.strokeWidth = 7;
+//self.polyline.strokeColor = [UIColor greenColor];
+//self.polyline.map = self.mapView;
+
 
 - (void)makeNewBikeDirectionsAPIRequestwithOrigin:(CLLocationCoordinate2D)coord1
                                       destination:(CLLocationCoordinate2D)coord2
                                 completionHandler:(void(^)())block {
     
-    
     NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&mode=bicycling&sensor=true&key=AIzaSyAd1r6-rsY8RMiF4iXNjoF9quj999DSiaQ",coord1.latitude,coord1.longitude,coord2.latitude,coord2.longitude];
-    
     NSString *encodedString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
-    NSLog(@"%@", encodedString);
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
     
+    [manager GET:encodedString parameters:nil progress:nil success:^(NSURLSessionTask *task, id responseObject) {
+        //NSLog(@"JSON: %@", responseObject);
+        
+        if  (responseObject!=nil){
+            NSDictionary *json = responseObject;
+            NSLog(@"JSON:%@",responseObject);
+            
+            //[NSJSONSerialization JSONObjectWithData:responseObject
+//                                                                 options:0
+//                                                                   error:nil];
+            NSArray *routes = json[@"routes"];
+            NSLog(@"Routes Array:%@",routes);
+            
+            if (routes.count > 0){
+        
+                self.steps = json[@"routes"][0][@"legs"][0][@"steps"];
+                self.totalDistance = json[@"routes"][0][@"legs"][0][@"distance"][@"text"];
+                self.totalDuration = json[@"routes"][0][@"legs"][0][@"duration"][@"text"];
+                self.directionsArray = [[NSMutableArray alloc]init];
+                self.numberArray = [[NSMutableArray alloc]init];
+                self.distanceArray = [[NSMutableArray alloc]init];
+                self.durationArray = [[NSMutableArray alloc]init];
+                self.maneuverArray = [[NSMutableArray alloc]init];
+                NSInteger directionsCount = 0;
+                NSString *maneuver;
+                for (NSDictionary *step in self.steps){
+                    NSString *htmlInstructions = [step objectForKey:@"html_instructions"];
+                    NSString *taglessString = [htmlInstructions removeTags];
+                    NSString *distance = step[@"distance"][@"text"];
+                    NSString *duration = step[@"duration"][@"text"];
+                    if (step[@"maneuver"] == nil){
+                        maneuver = @"";
+                    } else {
+                        maneuver = step[@"maneuver"];
+                    }
+                    directionsCount++;
+                    
+                    [self.directionsArray addObject:taglessString]; //method created in NSString+NSString_Sanitize
+                    [self.distanceArray addObject:distance];
+                    [self.durationArray addObject:duration];
+                    [self.maneuverArray addObject:maneuver];
+                    [self.numberArray addObject:[NSNumber numberWithInteger:directionsCount]];
+                }
+            } else {
+                
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No Route!" message:@"This destination looks to be unbikable!" preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Gotcha" style:UIAlertActionStyleCancel handler:nil];
+                [alert addAction:cancel];
+                
+                [self presentViewController:alert animated:true completion:nil];
+                
+                NSLog(@"Unbikable!");
+                
+                
+            }
+            
+            
+            NSLog(@"Total Distance: %@", self.totalDistance);
+            NSLog(@"Total Duration: %@", self.totalDuration);
+            NSLog(@"Directions: %@", self.directionsArray);
+            NSLog(@"Distance: %@", self.distanceArray);
+            NSLog(@"Duration: %@", self.durationArray);
+            NSLog(@"Steps:%@", self.maneuverArray);
+        }}
+            failure:^(NSURLSessionTask *operation, NSError *error) {
+            NSLog(@"Error: %@", error);
+     }];
+
+    block();
 }
+
+
+
 - (void)getCurrentLocation {
     
         //instantiate CLLocation
@@ -178,7 +350,6 @@ GMSAutocompleteViewControllerDelegate
     CLLocationCoordinate2D position = CLLocationCoordinate2DMake(googlePlace.coordinate.latitude, googlePlace.coordinate.longitude);
     
     if (origin == true){
-        //CLLocationCoordinate2D position = CLLocationCoordinate2DMake(<#CLLocationDegrees latitude#>, <#CLLocationDegrees longitude#>)
         self.originMarker.map = nil;
         self.originMarker = [GMSMarker markerWithPosition:position];
         self.originMarker.title = [NSString stringWithFormat:@"%@", googlePlace.name];
@@ -187,7 +358,6 @@ GMSAutocompleteViewControllerDelegate
         
     } else {
         self.destinationMarker.map = nil;
-        // CLLocationCoordinate2D position = CLLocationCoordinate2DMake(googlePlace.coordinate.latitude, googlePlace.coordinate.longitude);
         self.destinationMarker = [GMSMarker markerWithPosition:position];
         self.destinationMarker.title = [NSString stringWithFormat:@"%@",googlePlace.name];
         //self.destinationMarker.icon = [UIImage imageNamed:@"icon2"];
@@ -229,19 +399,44 @@ didAutocompleteWithPlace:(GMSPlace *)place {
         NSLog(@"Origin: %@", self.otherOrigin.name);
         NSLog(@"Origin Coord: %f, %f", self.otherOrigin.coordinate.latitude, self.otherOrigin.coordinate.longitude);
         NSLog(@"Origin Address: %@", self.otherOrigin.formattedAddress);
+        
+        if (self.destination != nil){
+            [self makeNewBikeDirectionsAPIRequestwithOrigin:self.otherOrigin.coordinate destination:self.destination.coordinate completionHandler:nil];
+        }
+        
+        
     } else if (self.returnDestination == TRUE){
         self.destination = place;
         
-        [self addMapMarker:place isOrigin:false];
-    
         [self.destinationButton setTitle:self.destination.name forState:UIControlStateNormal];
+        
         NSLog(@"Dest: %@", self.destination.name);
         NSLog(@"Dest Coord: %f, %f", self.destination.coordinate.latitude, self.destination.coordinate.longitude);
         NSLog(@"Dest Address: %@", self.destination.formattedAddress);
+        
+        CLLocationCoordinate2D origin;
+        
+        if (self.otherOrigin != nil){
+            origin = self.otherOrigin.coordinate;
+        } else {
+            origin = self.currentLoc.coordinate;
+        }
+        
+        [self makeNewBikeDirectionsAPIRequestwithOrigin:origin destination:self.destination.coordinate completionHandler:^{
+            
+        [self addMapMarker:place isOrigin:false];
+            
+            //self createPolylinesFromOrigin:<#(CLLocationCoordinate2D)#> toDestination:<#(CLLocationCoordinate2D)#>
+        }];
+        
+
     }
     
 }
 
+- (void)createPolylinesFromOrigin:(CLLocationCoordinate2D)origin toDestination:(CLLocationCoordinate2D)dest{
+    
+}
 
 - (void)viewController:(GMSAutocompleteViewController *)viewController
 didFailAutocompleteWithError:(NSError *)error {

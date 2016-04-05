@@ -13,6 +13,8 @@
 		9A67B3B41CAD7DCA0028586B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A67B3B31CAD7DCA0028586B /* Assets.xcassets */; };
 		9A67B3B71CAD7DCA0028586B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A67B3B51CAD7DCA0028586B /* LaunchScreen.storyboard */; };
 		9A67B3C01CAF2CAF0028586B /* BikeMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A67B3BF1CAF2CAF0028586B /* BikeMapViewController.m */; };
+		9A94A38C1CB1A77100CF8A5F /* CustomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A94A38B1CB1A77100CF8A5F /* CustomView.xib */; };
+		9A94A38F1CB1A85C00CF8A5F /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A94A38E1CB1A85C00CF8A5F /* CustomView.m */; };
 		C72D923374A4D78135CDE64C /* libPods-Bike-iT.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95F2CE6D46600A65BB046095 /* libPods-Bike-iT.a */; };
 /* End PBXBuildFile section */
 
@@ -30,6 +32,9 @@
 		9A67B3B81CAD7DCA0028586B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A67B3BE1CAF2CAF0028586B /* BikeMapViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BikeMapViewController.h; sourceTree = "<group>"; };
 		9A67B3BF1CAF2CAF0028586B /* BikeMapViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BikeMapViewController.m; sourceTree = "<group>"; };
+		9A94A38B1CB1A77100CF8A5F /* CustomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomView.xib; sourceTree = "<group>"; };
+		9A94A38D1CB1A85C00CF8A5F /* CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomView.h; sourceTree = "<group>"; };
+		9A94A38E1CB1A85C00CF8A5F /* CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -86,6 +91,9 @@
 				9A67B3AB1CAD7DCA0028586B /* AppDelegate.m */,
 				9A67B3BE1CAF2CAF0028586B /* BikeMapViewController.h */,
 				9A67B3BF1CAF2CAF0028586B /* BikeMapViewController.m */,
+				9A94A38B1CB1A77100CF8A5F /* CustomView.xib */,
+				9A94A38D1CB1A85C00CF8A5F /* CustomView.h */,
+				9A94A38E1CB1A85C00CF8A5F /* CustomView.m */,
 				9A67B3B01CAD7DCA0028586B /* Main.storyboard */,
 				9A67B3B31CAD7DCA0028586B /* Assets.xcassets */,
 				9A67B3B51CAD7DCA0028586B /* LaunchScreen.storyboard */,
@@ -165,6 +173,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A67B3B71CAD7DCA0028586B /* LaunchScreen.storyboard in Resources */,
+				9A94A38C1CB1A77100CF8A5F /* CustomView.xib in Resources */,
 				9A67B3B41CAD7DCA0028586B /* Assets.xcassets in Resources */,
 				9A67B3B21CAD7DCA0028586B /* Main.storyboard in Resources */,
 			);
@@ -226,6 +235,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A67B3C01CAF2CAF0028586B /* BikeMapViewController.m in Sources */,
+				9A94A38F1CB1A85C00CF8A5F /* CustomView.m in Sources */,
 				9A67B3AC1CAD7DCA0028586B /* AppDelegate.m in Sources */,
 				9A67B3A91CAD7DCA0028586B /* main.m in Sources */,
 			);
