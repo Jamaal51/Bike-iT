@@ -34,6 +34,8 @@ GMSAutocompleteViewControllerDelegate
 @property (nonatomic) GMSMarker *originMarker;
 
 @property (nonatomic) NSArray *steps;
+@property (nonatomic) NSMutableArray *polylineArray;
+@property (nonatomic) GMSPath *path;
 @property (nonatomic) GMSPolyline *polyline;
 @property (nonatomic) NSString *totalDistance;
 @property (nonatomic) NSString *totalDuration;
@@ -189,37 +191,6 @@ GMSAutocompleteViewControllerDelegate
 
 }
 
-//get directions in array to present in tableview
-//for (NSDictionary *step in self.steps){
-//    NSString *htmlInstructions = [step objectForKey:@"html_instructions"];
-//    NSString *taglessString = [htmlInstructions removeTags];
-//    NSLog(@"Parsed: %@", taglessString);
-//    
-//    
-//    NSString *distance = step[@"distance"][@"text"];
-//    NSString *duration = step[@"duration"][@"text"];
-//    if (step[@"maneuver"] == nil){
-//        maneuver = @"";
-//    } else {
-//        maneuver = step[@"maneuver"];
-//    }
-//    directionsCount++;
-//    
-//    [self.directionsArray addObject:taglessString]; //method created in NSString+NSString_Sanitize
-//    [self.distanceArray addObject:distance];
-//    [self.durationArray addObject:duration];
-//    [self.maneuverArray addObject:maneuver];
-//    [self.numberArray addObject:[NSNumber numberWithInteger:directionsCount]];
-//}
-//
-//GMSPath *path =[GMSPath pathFromEncodedPath:
-//                json[@"routes"][0][@"overview_polyline"][@"points"]];
-//self.polyline = [GMSPolyline polylineWithPath:path];
-//self.polyline.strokeWidth = 7;
-//self.polyline.strokeColor = [UIColor greenColor];
-//self.polyline.map = self.mapView;
-
-
 - (void)makeNewBikeDirectionsAPIRequestwithOrigin:(CLLocationCoordinate2D)coord1
                                       destination:(CLLocationCoordinate2D)coord2
                                 completionHandler:(void(^)())block {
@@ -252,6 +223,7 @@ GMSAutocompleteViewControllerDelegate
                 self.distanceArray = [[NSMutableArray alloc]init];
                 self.durationArray = [[NSMutableArray alloc]init];
                 self.maneuverArray = [[NSMutableArray alloc]init];
+                self.polylineArray = [[NSMutableArray alloc]init];
                 NSInteger directionsCount = 0;
                 NSString *maneuver;
                 for (NSDictionary *step in self.steps){
@@ -271,7 +243,20 @@ GMSAutocompleteViewControllerDelegate
                     [self.durationArray addObject:duration];
                     [self.maneuverArray addObject:maneuver];
                     [self.numberArray addObject:[NSNumber numberWithInteger:directionsCount]];
+                    
+                    self.path =[GMSPath pathFromEncodedPath:
+                                    json[@"routes"][0][@"overview_polyline"][@"points"]];
+                    self.polyline = [GMSPolyline polylineWithPath:self.path];
+                    self.polyline.strokeWidth = 7;
+                    self.polyline.strokeColor = [UIColor greenColor];
+                    
+                    [self.polylineArray addObject:self.polyline];
+                    
+                    for (GMSPolyline *polyline in self.polylineArray){
+                        polyline.map = self.mapView;
+                    }
                 }
+                
             } else {
                 
                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"No Route!" message:@"This destination looks to be unbikable!" preferredStyle:UIAlertControllerStyleAlert];
@@ -281,10 +266,7 @@ GMSAutocompleteViewControllerDelegate
                 [self presentViewController:alert animated:true completion:nil];
                 
                 NSLog(@"Unbikable!");
-                
-                
             }
-            
             
             NSLog(@"Total Distance: %@", self.totalDistance);
             NSLog(@"Total Duration: %@", self.totalDuration);
@@ -294,13 +276,18 @@ GMSAutocompleteViewControllerDelegate
             NSLog(@"Steps:%@", self.maneuverArray);
         }}
             failure:^(NSURLSessionTask *operation, NSError *error) {
-            NSLog(@"Error: %@", error);
+            //NSLog(@"Error: %@", error);
+                
+                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Whoops!" message:@"Something went wrong. Try again." preferredStyle:UIAlertControllerStyleAlert];
+                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Gotcha" style:UIAlertActionStyleCancel handler:nil];
+                [alert addAction:cancel];
+                
+                [self presentViewController:alert animated:true completion:nil];
+
      }];
 
     block();
 }
-
-
 
 - (void)getCurrentLocation {
     
@@ -368,6 +355,14 @@ GMSAutocompleteViewControllerDelegate
     }
 }
 
+- (void)updateMapCameraFromOrigin:(CLLocationCoordinate2D)coords1 toDestination:(CLLocationCoordinate2D)coords2{
+    
+    GMSCoordinateBounds *bounds = [[GMSCoordinateBounds alloc] initWithCoordinate:coords1 coordinate:coords2];
+    
+    [self.mapView animateWithCameraUpdate:[GMSCameraUpdate fitBounds:bounds withPadding:20.0f]];
+  
+}
+
 #pragma mark - AutoComplete Delegates
 
 - (IBAction)callAutocomplete:(id)sender {
@@ -389,7 +384,11 @@ GMSAutocompleteViewControllerDelegate
 - (void)viewController:(GMSAutocompleteViewController *)viewController
 didAutocompleteWithPlace:(GMSPlace *)place {
     [self dismissViewControllerAnimated:YES completion:nil];
-
+    
+    for (GMSPolyline *polyline in self.polylineArray){
+        polyline.map = nil;
+    }
+    
     if (self.returnOrigin == TRUE){
         self.otherOrigin = place;
         [self.originButton setTitle: self.otherOrigin.name forState:UIControlStateNormal];
@@ -401,9 +400,9 @@ didAutocompleteWithPlace:(GMSPlace *)place {
         NSLog(@"Origin Address: %@", self.otherOrigin.formattedAddress);
         
         if (self.destination != nil){
+            [self updateMapCameraFromOrigin:self.otherOrigin.coordinate toDestination:self.destination.coordinate];
             [self makeNewBikeDirectionsAPIRequestwithOrigin:self.otherOrigin.coordinate destination:self.destination.coordinate completionHandler:nil];
         }
-        
         
     } else if (self.returnDestination == TRUE){
         self.destination = place;
@@ -422,20 +421,26 @@ didAutocompleteWithPlace:(GMSPlace *)place {
             origin = self.currentLoc.coordinate;
         }
         
-        [self makeNewBikeDirectionsAPIRequestwithOrigin:origin destination:self.destination.coordinate completionHandler:^{
-            
         [self addMapMarker:place isOrigin:false];
+        
+        [self updateMapCameraFromOrigin:origin toDestination:self.destination.coordinate];
+        
+        [self makeNewBikeDirectionsAPIRequestwithOrigin:origin destination:self.destination.coordinate completionHandler:^{
             
             //self createPolylinesFromOrigin:<#(CLLocationCoordinate2D)#> toDestination:<#(CLLocationCoordinate2D)#>
         }];
-        
-
     }
-    
 }
 
 - (void)createPolylinesFromOrigin:(CLLocationCoordinate2D)origin toDestination:(CLLocationCoordinate2D)dest{
     
+//    GMSPath *path =[GMSPath pathFromEncodedPath:
+//                    json[@"routes"][0][@"overview_polyline"][@"points"]];
+//    self.polyline = [GMSPolyline polylineWithPath:path];
+//    self.polyline.strokeWidth = 7;
+//    self.polyline.strokeColor = [UIColor greenColor];
+//    self.polyline.map = self.mapView;
+
 }
 
 - (void)viewController:(GMSAutocompleteViewController *)viewController
