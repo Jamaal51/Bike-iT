@@ -18,7 +18,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="2Wh-7z-Cmm" customClass="GMSMapView">
-                                <rect key="frame" x="0.0" y="65" width="600" height="535"/>
+                                <rect key="frame" x="0.0" y="65" width="600" height="435"/>
                                 <color key="backgroundColor" red="0.75457596599999999" green="0.86496030550000003" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="K1e-eE-wvG" userLabel="Top View">
@@ -76,14 +76,44 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TNJ-B2-gfk">
+                                <rect key="frame" x="0.0" y="500" width="600" height="100"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="W5c-sg-CJA">
+                                        <rect key="frame" x="550" y="0.0" width="50" height="100"/>
+                                        <color key="backgroundColor" red="0.58215645230000002" green="0.67227289769999998" blue="0.76012073859999996" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="50" id="uO2-nY-cna"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                        <state key="normal" title="Start">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="startButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="y3y-Yd-YHQ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="100" id="gOo-uc-pLY"/>
+                                    <constraint firstAttribute="bottom" secondItem="W5c-sg-CJA" secondAttribute="bottom" id="iva-ei-yk9"/>
+                                    <constraint firstAttribute="trailing" secondItem="W5c-sg-CJA" secondAttribute="trailing" id="nZS-33-vAG"/>
+                                    <constraint firstItem="W5c-sg-CJA" firstAttribute="top" secondItem="TNJ-B2-gfk" secondAttribute="top" id="zNK-3t-fqo"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="TNJ-B2-gfk" secondAttribute="bottom" id="9xO-WC-izZ"/>
                             <constraint firstItem="2Wh-7z-Cmm" firstAttribute="top" secondItem="K1e-eE-wvG" secondAttribute="bottom" id="P1M-ud-1lg"/>
                             <constraint firstItem="2Wh-7z-Cmm" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="PXS-SP-eT2"/>
                             <constraint firstAttribute="trailing" secondItem="K1e-eE-wvG" secondAttribute="trailing" id="RPJ-7v-cmj"/>
                             <constraint firstItem="K1e-eE-wvG" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="Sh7-Km-6Dh"/>
+                            <constraint firstItem="TNJ-B2-gfk" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="W1I-M0-kYd"/>
                             <constraint firstItem="2Wh-7z-Cmm" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" id="YJU-bT-TlQ"/>
+                            <constraint firstAttribute="trailing" secondItem="TNJ-B2-gfk" secondAttribute="trailing" id="brb-29-Wip"/>
+                            <constraint firstItem="TNJ-B2-gfk" firstAttribute="top" secondItem="2Wh-7z-Cmm" secondAttribute="bottom" id="hKC-qT-cGT"/>
                             <constraint firstAttribute="trailing" secondItem="2Wh-7z-Cmm" secondAttribute="trailing" id="l0s-8K-du5"/>
                             <constraint firstItem="K1e-eE-wvG" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="xnT-rZ-x4e"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="2Wh-7z-Cmm" secondAttribute="bottom" id="yYg-Oa-mJY"/>
@@ -91,6 +121,7 @@
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="YJU-bT-TlQ"/>
+                                <exclude reference="yYg-Oa-mJY"/>
                             </mask>
                         </variation>
                     </view>

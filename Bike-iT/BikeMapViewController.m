@@ -25,6 +25,7 @@ GMSAutocompleteViewControllerDelegate
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
 @property (nonatomic) CLLocation *currentLoc;
+@property (nonatomic) CLLocation *updatedLoc;
 @property (nonatomic) GMSPlace *otherOrigin;
 @property (nonatomic) GMSPlace *destination;
 @property (nonatomic) BOOL returnOrigin;
@@ -67,33 +68,47 @@ GMSAutocompleteViewControllerDelegate
     
 }
 
-- (IBAction)bikeButtonTapped:(UIButton *)sender {
-
-  //  [self startJourneyButtonAnimation:^{
-        CLLocationCoordinate2D origin;
-        CLLocationCoordinate2D dest;
-        
-        if (self.otherOrigin == nil){
-            origin = CLLocationCoordinate2DMake(self.currentLoc.coordinate.latitude, self.currentLoc.coordinate.longitude);
-        } else {
-            origin = CLLocationCoordinate2DMake(self.otherOrigin.coordinate.latitude, self.otherOrigin.coordinate.longitude);
-        }
-        dest = CLLocationCoordinate2DMake(self.destination.coordinate.latitude, self.destination.coordinate.longitude);
-        
-        //[self makeNewBikeDirectionsAPIRequestwithOrigin:origin destination:dest completionHandler:nil];
-
-        
-        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:dest.latitude
-                                                                longitude:dest.longitude
-                                                                     zoom:15];
-        
-        
-        [self.mapView animateToCameraPosition:camera];
+- (IBAction)startButtonTapped:(UIButton *)sender {
     
-//    CustomView *cv = [[CustomView alloc]initWithFrame:CGRectMake(self.mapView.bounds.origin.x, self.mapView.bounds.origin.y, 200, 100)];   //create an instance of your custom view
-//    [self.mapView addSubview:cv];
-
+    INTULocationManager *locMgr = [INTULocationManager sharedInstance];
+    [locMgr subscribeToLocationUpdatesWithDesiredAccuracy:INTULocationAccuracyHouse
+                                                    block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+                                                        
+                                                        if (status == INTULocationStatusSuccess) {
+                                                            NSString* currentLat = [self decimalFormatter:currentLocation.coordinate.latitude];
+                                                            NSString* currentLng = [self decimalFormatter:currentLocation.coordinate.longitude];
+                                                            
+                                                            NSLog(@"Current Lat String: %@",currentLat);
+                                                            NSLog(@"Current Lng String: %@",currentLng);
+                                                            
+                                                        }
+                                                        
+                                                        else {
+                                                
+                                                        }
+                                                    }];
+    
 }
+
+- (NSString*)decimalFormatter:(CLLocationDegrees)coordinate{
+   
+    NSNumber *coord = [NSNumber numberWithDouble:coordinate];
+    
+    NSNumberFormatter *fmt = [[NSNumberFormatter alloc] init];
+    [fmt setPositiveFormat:@"0.#######"];
+    //NSLog(@"%@", [fmt stringFromNumber:[NSNumber numberWithFloat:25.342]]);
+
+    NSString *fmtCoord = [fmt stringFromNumber:coord];
+    
+    return fmtCoord;
+}
+
+//lat = "40.7285609";
+//lng = "-73.8878567;
+
+//current
+//40.7282598
+//-73.8877261
 
 #pragma mark - Animations
 
@@ -145,24 +160,18 @@ GMSAutocompleteViewControllerDelegate
             NSDictionary *json = responseObject;
             NSLog(@"JSON:%@",responseObject);
             
-            //[NSJSONSerialization JSONObjectWithData:responseObject
-//                                                                 options:0
-//                                                                   error:nil];
             NSArray *routes = json[@"routes"];
-            NSLog(@"Routes Array:%@",routes);
             
             if (routes.count > 0){
         
                 self.steps = json[@"routes"][0][@"legs"][0][@"steps"];
                 self.totalDistance = json[@"routes"][0][@"legs"][0][@"distance"][@"text"];
                 self.totalDuration = json[@"routes"][0][@"legs"][0][@"duration"][@"text"];
-//                self.directionsArray = [[NSMutableArray alloc]init];
-//                self.numberArray = [[NSMutableArray alloc]init];
-//                self.distanceArray = [[NSMutableArray alloc]init];
-//                self.durationArray = [[NSMutableArray alloc]init];
-//                self.maneuverArray = [[NSMutableArray alloc]init];
+
                 self.polylineArray = [[NSMutableArray alloc]init];
                 self.routeDirections = [[NSMutableArray alloc] init];
+                
+                //iteratign through JSON routes
                 double directionsCount = 0;
                 NSString *maneuver;
                 for (NSDictionary *step in self.steps){
@@ -176,18 +185,21 @@ GMSAutocompleteViewControllerDelegate
                         maneuver = step[@"maneuver"];
                     }
                     directionsCount++;
-                    NSString *startLocationLat = step[@"start_location"][@"lat"];
-                    NSString *startLocationLng = step[@"start_location"][@"lng"];
-                    NSString *endLocationLat = step[@"end_location"][@"lat"];
-                    NSString *endLocationLng = step[@"end_location"][@"lng"];
+//                    NSString *startLocationLat = step[@"start_location"][@"lat"];
+//                    NSString *startLocationLng = step[@"start_location"][@"lng"];
+//                    NSString *endLocationLat = step[@"end_location"][@"lat"];
+//                    NSString *endLocationLng = step[@"end_location"][@"lng"];
                     
-                    //NSLog(@"Start Degrees: %2f,%2f",startLat,startLng);
+                    CLLocationDegrees startLatDegree = [step[@"start_location"][@"lat"] doubleValue];
+                    CLLocationDegrees startLngDegree = [step[@"start_location"][@"lng"] doubleValue];
+                    CLLocationDegrees endLatDegree = [step[@"start_location"][@"lng"] doubleValue];
+                    CLLocationDegrees endLngDegree = [step[@"start_location"][@"lng"] doubleValue];
                     
-//                    [self.directionsArray addObject:taglessString]; //method created in NSString+NSString_Sanitize
-//                    [self.distanceArray addObject:distance];
-//                    [self.durationArray addObject:duration];
-//                    [self.maneuverArray addObject:maneuver];
-//                    [self.numberArray addObject:[NSNumber numberWithInteger:directionsCount]];
+                    NSString *fmtStartLatString = [self decimalFormatter:startLatDegree];
+                    NSString *fmtStartLngString = [self decimalFormatter:startLngDegree];
+                    NSString *fmtEndLatString = [self decimalFormatter:endLatDegree];
+                    NSString *fmtEndLngString = [self decimalFormatter:endLngDegree];
+                    
                     
                     self.path =[GMSPath pathFromEncodedPath:
                                     json[@"routes"][0][@"overview_polyline"][@"points"]];
@@ -206,10 +218,10 @@ GMSAutocompleteViewControllerDelegate
                                                 @"duration" : duration,
                                                 @"maneuver" : maneuver,
                                                 @"count" : [NSNumber numberWithDouble:directionsCount],
-                                                @"startLat" : startLocationLat,
-                                                @"startLng" : startLocationLng,
-                                                @"endLat:" : endLocationLat,
-                                                @"endLng" : endLocationLng
+                                                @"startLat" : fmtStartLatString,
+                                                @"startLng" : fmtStartLngString,
+                                                @"endLat:" : fmtEndLatString,
+                                                @"endLng" : fmtEndLngString
                                                 };
                     
                     [self.routeDirections addObject:routeStep];
@@ -262,7 +274,7 @@ GMSAutocompleteViewControllerDelegate
     
     INTULocationManager *locationMgr = [INTULocationManager sharedInstance];
     
-    [locationMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyCity
+    [locationMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse
                                             timeout:10.0 block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
                                                 if (status == INTULocationStatusSuccess){
                                                     
