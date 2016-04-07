@@ -8,6 +8,7 @@
 
 #import "BikeMapViewController.h"
 #import "CustomView.h"
+#import <ZFHaversine/ZFHaversine.h>
 
 @interface BikeMapViewController ()
 <
@@ -98,7 +99,7 @@ GMSAutocompleteViewControllerDelegate
 
 // referenced from https://rosettacode.org/wiki/Haversine_formula#Objective-C
 
-- (double) checkDistanceBetweenLat1:(CLLocationDegrees)lat1 lng1:(CLLocationDegrees)lng1{
+- (CGFloat)checkDistanceBetweenLat1:(CLLocationDegrees)lat1 lng1:(CLLocationDegrees)lng1{
 //                          lat2:(CLLocationDegrees)lat2 lng2:(CLLocationDegrees)lng2 {
     //degrees to radians
     double lat1rad = lat1 * M_PI/180;
@@ -112,18 +113,44 @@ GMSAutocompleteViewControllerDelegate
     double latDouble = [lat doubleValue];
     double lngDouble = [lng doubleValue];
     
-    double lat2rad = latDouble * M_PI/180;
-    double lng2rad = lngDouble * M_PI/180;
+    CGFloat latOne = (CGFloat)lat1;
+    CGFloat lngOne = (CGFloat)lng1;
+    CGFloat latTwo = (CGFloat)latDouble;
+    CGFloat lngTwo = (CGFloat)lngDouble;
     
-    //deltas
-    double dLat = lat2rad - lat1rad;
-    double dLng = lng2rad - lng1rad;
+//    ZFHaversine *distanceAndBearing = [[ZFHaversine alloc] initWithLatitude1:latOne
+//                                                                  longitude1:lngOne
+//                                                                   latitude2:latTwo
+//                                                                  longitude2:lngTwo
+//                                       ];
     
-    double a = sin(dLat/2) * sin(dLat/2) + sin(dLng/2) * sin(dLng/2) * cos(lat1rad) * cos(lat2rad);
-    double c = 2 * asin(sqrt(a));
-    double R = 6372.8;
+    ZFHaversine *distanceAndBearing = [[ZFHaversine alloc] init];
+    [distanceAndBearing setLatitude1:latOne];
+    [distanceAndBearing setLongitude1:lngOne];
+    [distanceAndBearing setLatitude2:latTwo];
+    [distanceAndBearing setLongitude2:lngTwo];
+
     
-    return R * c;
+    NSLog(@"Miles %f", [distanceAndBearing miles]);
+    NSLog(@"Yards %f", [distanceAndBearing yards]);
+    NSLog(@"Feet %f", [distanceAndBearing feet]);
+    NSLog(@"Initial Bearing %f", [distanceAndBearing initialBearing]);
+    NSLog(@"Initial Bearing %f", [distanceAndBearing finalBearing]);
+
+   // CGFloat distance = [distanceAndBearing feet];
+    
+//    double lat2rad = latDouble * M_PI/180;
+//    double lng2rad = lngDouble * M_PI/180;
+//    
+//    //deltas
+//    double dLat = lat2rad - lat1rad;
+//    double dLng = lng2rad - lng1rad;
+//    
+//    double a = sin(dLat/2) * sin(dLat/2) + sin(dLng/2) * sin(dLng/2) * cos(lat1rad) * cos(lat2rad);
+//    double c = 2 * asin(sqrt(a));
+//    double R = 6371;
+    
+    return 0.0;
 }
 
 - (NSString*)decimalFormatter:(CLLocationDegrees)coordinate{
@@ -221,20 +248,20 @@ GMSAutocompleteViewControllerDelegate
                         maneuver = step[@"maneuver"];
                     }
                     directionsCount++;
-//                    NSString *startLocationLat = step[@"start_location"][@"lat"];
-//                    NSString *startLocationLng = step[@"start_location"][@"lng"];
-//                    NSString *endLocationLat = step[@"end_location"][@"lat"];
-//                    NSString *endLocationLng = step[@"end_location"][@"lng"];
+                    NSString *startLocationLat = step[@"start_location"][@"lat"];
+                    NSString *startLocationLng = step[@"start_location"][@"lng"];
+                    NSString *endLocationLat = step[@"end_location"][@"lat"];
+                    NSString *endLocationLng = step[@"end_location"][@"lng"];
                     
-                    CLLocationDegrees startLatDegree = [step[@"start_location"][@"lat"] doubleValue];
-                    CLLocationDegrees startLngDegree = [step[@"start_location"][@"lng"] doubleValue];
-                    CLLocationDegrees endLatDegree = [step[@"start_location"][@"lat"] doubleValue];
-                    CLLocationDegrees endLngDegree = [step[@"start_location"][@"lng"] doubleValue];
-                    
-                    NSString *fmtStartLatString = [self decimalFormatter:startLatDegree];
-                    NSString *fmtStartLngString = [self decimalFormatter:startLngDegree];
-                    NSString *fmtEndLatString = [self decimalFormatter:endLatDegree];
-                    NSString *fmtEndLngString = [self decimalFormatter:endLngDegree];
+//                    CLLocationDegrees startLatDegree = [step[@"start_location"][@"lat"] doubleValue];
+//                    CLLocationDegrees startLngDegree = [step[@"start_location"][@"lng"] doubleValue];
+//                    CLLocationDegrees endLatDegree = [step[@"start_location"][@"lat"] doubleValue];
+//                    CLLocationDegrees endLngDegree = [step[@"start_location"][@"lng"] doubleValue];
+//                    
+//                    NSString *fmtStartLatString = [self decimalFormatter:startLatDegree];
+//                    NSString *fmtStartLngString = [self decimalFormatter:startLngDegree];
+//                    NSString *fmtEndLatString = [self decimalFormatter:endLatDegree];
+//                    NSString *fmtEndLngString = [self decimalFormatter:endLngDegree];
                     
                     self.path =[GMSPath pathFromEncodedPath:
                                     json[@"routes"][0][@"overview_polyline"][@"points"]];
@@ -253,10 +280,10 @@ GMSAutocompleteViewControllerDelegate
                                                 @"duration" : duration,
                                                 @"maneuver" : maneuver,
                                                 @"stepNum" : [NSNumber numberWithDouble:directionsCount],
-                                                @"startLat" : fmtStartLatString,
-                                                @"startLng" : fmtStartLngString,
-                                                @"endLat:" : fmtEndLatString,
-                                                @"endLng" : fmtEndLngString
+                                                @"startLat" : startLocationLat,
+                                                @"startLng" : startLocationLng,
+                                                @"endLat:" : endLocationLat,
+                                                @"endLng" : endLocationLng
                                                 };
                     
                     [self.routeDirections addObject:routeStep];

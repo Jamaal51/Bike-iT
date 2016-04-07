@@ -14,7 +14,7 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = 'primary'
-               BlueprintIdentifier = '34D6E75A7B10BF5FFCBB5F79'
+               BlueprintIdentifier = '2421CD39C057DA1442D57424'
                BlueprintName = 'StripHTML-StripHTML'
                ReferencedContainer = 'container:Pods.xcodeproj'
                BuildableName = 'StripHTML.bundle'>
