@@ -70,24 +70,60 @@ GMSAutocompleteViewControllerDelegate
 
 - (IBAction)startButtonTapped:(UIButton *)sender {
     
+    [self trackCurrentLocation];
+}
+
+- (void)trackCurrentLocation{
+    
     INTULocationManager *locMgr = [INTULocationManager sharedInstance];
     [locMgr subscribeToLocationUpdatesWithDesiredAccuracy:INTULocationAccuracyHouse
                                                     block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
                                                         
                                                         if (status == INTULocationStatusSuccess) {
-                                                            NSString* currentLat = [self decimalFormatter:currentLocation.coordinate.latitude];
-                                                            NSString* currentLng = [self decimalFormatter:currentLocation.coordinate.longitude];
+                                                            //NSString* currentLat = [self decimalFormatter:currentLocation.coordinate.latitude];
+                                                            //NSString* currentLng = [self decimalFormatter:currentLocation.coordinate.longitude];
                                                             
-                                                            NSLog(@"Current Lat String: %@",currentLat);
-                                                            NSLog(@"Current Lng String: %@",currentLng);
+                                                            double distance = [self checkDistanceBetweenLat1:currentLocation.coordinate.latitude lng1:currentLocation.coordinate.longitude];
                                                             
+                                                            NSLog(@"Distance between points: %f", distance);
                                                         }
                                                         
                                                         else {
-                                                
+                                                            
                                                         }
                                                     }];
+
     
+}
+
+// referenced from https://rosettacode.org/wiki/Haversine_formula#Objective-C
+
+- (double) checkDistanceBetweenLat1:(CLLocationDegrees)lat1 lng1:(CLLocationDegrees)lng1{
+//                          lat2:(CLLocationDegrees)lat2 lng2:(CLLocationDegrees)lng2 {
+    //degrees to radians
+    double lat1rad = lat1 * M_PI/180;
+    double lng1rad = lng1 * M_PI/180;
+    
+    //get next step coordinate in routeDirections array
+    
+    NSString *lat = self.routeDirections[0][@"startLat"];
+    NSString *lng = self.routeDirections[0][@"startLng"];
+    
+    double latDouble = [lat doubleValue];
+    double lngDouble = [lng doubleValue];
+    
+    double lat2rad = latDouble * M_PI/180;
+    double lng2rad = lngDouble * M_PI/180;
+    
+    //deltas
+    double dLat = lat2rad - lat1rad;
+    double dLng = lng2rad - lng1rad;
+    
+    double a = sin(dLat/2) * sin(dLat/2) + sin(dLng/2) * sin(dLng/2) * cos(lat1rad) * cos(lat2rad);
+    double c = 2 * asin(sqrt(a));
+    double R = 6372.8;
+    
+    return R * c;
 }
 
 - (NSString*)decimalFormatter:(CLLocationDegrees)coordinate{
@@ -192,14 +228,13 @@ GMSAutocompleteViewControllerDelegate
                     
                     CLLocationDegrees startLatDegree = [step[@"start_location"][@"lat"] doubleValue];
                     CLLocationDegrees startLngDegree = [step[@"start_location"][@"lng"] doubleValue];
-                    CLLocationDegrees endLatDegree = [step[@"start_location"][@"lng"] doubleValue];
+                    CLLocationDegrees endLatDegree = [step[@"start_location"][@"lat"] doubleValue];
                     CLLocationDegrees endLngDegree = [step[@"start_location"][@"lng"] doubleValue];
                     
                     NSString *fmtStartLatString = [self decimalFormatter:startLatDegree];
                     NSString *fmtStartLngString = [self decimalFormatter:startLngDegree];
                     NSString *fmtEndLatString = [self decimalFormatter:endLatDegree];
                     NSString *fmtEndLngString = [self decimalFormatter:endLngDegree];
-                    
                     
                     self.path =[GMSPath pathFromEncodedPath:
                                     json[@"routes"][0][@"overview_polyline"][@"points"]];
@@ -217,7 +252,7 @@ GMSAutocompleteViewControllerDelegate
                                                 @"distance" : distance,
                                                 @"duration" : duration,
                                                 @"maneuver" : maneuver,
-                                                @"count" : [NSNumber numberWithDouble:directionsCount],
+                                                @"stepNum" : [NSNumber numberWithDouble:directionsCount],
                                                 @"startLat" : fmtStartLatString,
                                                 @"startLng" : fmtStartLngString,
                                                 @"endLat:" : fmtEndLatString,
