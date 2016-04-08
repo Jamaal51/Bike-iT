@@ -23,6 +23,7 @@ GMSAutocompleteViewControllerDelegate
 @property (strong, nonatomic) IBOutlet UIButton *originButton;
 @property (strong, nonatomic) IBOutlet UIButton *destinationButton;
 
+@property (nonatomic) UIActivityIndicatorView *activity;
 @property (strong, nonatomic) CLLocationManager *locationManager;
 
 @property (nonatomic) CLLocation *currentLoc;
@@ -71,10 +72,10 @@ GMSAutocompleteViewControllerDelegate
 
 - (IBAction)startButtonTapped:(UIButton *)sender {
     
-    [self trackCurrentLocation];
+    [self updateCurrentLocation];
 }
 
-- (void)trackCurrentLocation{
+- (void)updateCurrentLocation{
     
     INTULocationManager *locMgr = [INTULocationManager sharedInstance];
     [locMgr subscribeToLocationUpdatesWithDesiredAccuracy:INTULocationAccuracyHouse
@@ -84,8 +85,20 @@ GMSAutocompleteViewControllerDelegate
                                                             //NSString* currentLat = [self decimalFormatter:currentLocation.coordinate.latitude];
                                                             //NSString* currentLng = [self decimalFormatter:currentLocation.coordinate.longitude];
                                                             
-                                                            double distance = [self checkDistanceBetweenLat1:currentLocation.coordinate.latitude lng1:currentLocation.coordinate.longitude];
+//                                                            double distance = [self checkDistanceBetweenLat1:currentLocation.coordinate.latitude lng1:currentLocation.coordinate.longitude];
                                                             
+                                        
+                                                            
+                                                            NSString *lat = self.routeDirections[0][@"endLat"];
+                                                            NSString *lng = self.routeDirections[0][@"endLng"];
+                                                            CLLocationDegrees latCoord = [lat doubleValue];
+                                                            CLLocationDegrees lngCoord = [lng doubleValue];
+                                                            CLLocationCoordinate2D dest = CLLocationCoordinate2DMake(latCoord, lngCoord);
+                                                            
+                                                            CGFloat distance = [self directMetersFromCoordinate:currentLocation.coordinate toCoordinate:dest];
+                                                            
+                                                            NSLog(@"Origin Coord: %f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
+                                                            NSLog(@"Dest Coord: %f,%f",latCoord,lngCoord);
                                                             NSLog(@"Distance between points: %f", distance);
                                                         }
                                                         
@@ -118,39 +131,36 @@ GMSAutocompleteViewControllerDelegate
     CGFloat latTwo = (CGFloat)latDouble;
     CGFloat lngTwo = (CGFloat)lngDouble;
     
-//    ZFHaversine *distanceAndBearing = [[ZFHaversine alloc] initWithLatitude1:latOne
-//                                                                  longitude1:lngOne
-//                                                                   latitude2:latTwo
-//                                                                  longitude2:lngTwo
-//                                       ];
+    double lat2rad = latDouble * M_PI/180;
+    double lng2rad = lngDouble * M_PI/180;
     
-    ZFHaversine *distanceAndBearing = [[ZFHaversine alloc] init];
-    [distanceAndBearing setLatitude1:latOne];
-    [distanceAndBearing setLongitude1:lngOne];
-    [distanceAndBearing setLatitude2:latTwo];
-    [distanceAndBearing setLongitude2:lngTwo];
+    //deltas
+    double dLat = lat2rad - lat1rad;
+    double dLng = lng2rad - lng1rad;
+    
+    double a = sin(dLat/2) * sin(dLat/2) + sin(dLng/2) * sin(dLng/2) * cos(lat1rad) * cos(lat2rad);
+    double c = 2 * asin(sqrt(a));
+    double R = 6371;
+    
+    return R * c;
+}
 
-    
-    NSLog(@"Miles %f", [distanceAndBearing miles]);
-    NSLog(@"Yards %f", [distanceAndBearing yards]);
-    NSLog(@"Feet %f", [distanceAndBearing feet]);
-    NSLog(@"Initial Bearing %f", [distanceAndBearing initialBearing]);
-    NSLog(@"Initial Bearing %f", [distanceAndBearing finalBearing]);
+//referenced from http://www.codecodex.com/wiki/Calculate_distance_between_two_points_on_a_globe#Objective_C
 
-   // CGFloat distance = [distanceAndBearing feet];
+- (CGFloat)directMetersFromCoordinate:(CLLocationCoordinate2D)from toCoordinate:(CLLocationCoordinate2D)to {
     
-//    double lat2rad = latDouble * M_PI/180;
-//    double lng2rad = lngDouble * M_PI/180;
-//    
-//    //deltas
-//    double dLat = lat2rad - lat1rad;
-//    double dLng = lng2rad - lng1rad;
-//    
-//    double a = sin(dLat/2) * sin(dLat/2) + sin(dLng/2) * sin(dLng/2) * cos(lat1rad) * cos(lat2rad);
-//    double c = 2 * asin(sqrt(a));
-//    double R = 6371;
+    static const double DEG_TO_RAD = 0.017453292519943295769236907684886;
+    static const double EARTH_RADIUS_IN_METERS = 6372797.560856;
     
-    return 0.0;
+    double latitudeArc  = (from.latitude - to.latitude) * DEG_TO_RAD;
+    double longitudeArc = (from.longitude - to.longitude) * DEG_TO_RAD;
+    double latitudeH = sin(latitudeArc * 0.5);
+    latitudeH *= latitudeH;
+    double lontitudeH = sin(longitudeArc * 0.5);
+    lontitudeH *= lontitudeH;
+    double tmp = cos(from.latitude*DEG_TO_RAD) * cos(to.latitude*DEG_TO_RAD);
+    
+    return EARTH_RADIUS_IN_METERS * 2.0 * asin(sqrt(latitudeH + tmp*lontitudeH))*3.28084;
 }
 
 - (NSString*)decimalFormatter:(CLLocationDegrees)coordinate{
@@ -210,7 +220,7 @@ GMSAutocompleteViewControllerDelegate
 - (void)makeNewBikeDirectionsAPIRequestwithOrigin:(CLLocationCoordinate2D)coord1
                                       destination:(CLLocationCoordinate2D)coord2
                                 completionHandler:(void(^)())block {
-    
+
     NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&mode=bicycling&sensor=true&key=AIzaSyAd1r6-rsY8RMiF4iXNjoF9quj999DSiaQ",coord1.latitude,coord1.longitude,coord2.latitude,coord2.longitude];
     NSString *encodedString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
     
@@ -282,7 +292,7 @@ GMSAutocompleteViewControllerDelegate
                                                 @"stepNum" : [NSNumber numberWithDouble:directionsCount],
                                                 @"startLat" : startLocationLat,
                                                 @"startLng" : startLocationLng,
-                                                @"endLat:" : endLocationLat,
+                                                @"endLat" : endLocationLat,
                                                 @"endLng" : endLocationLng
                                                 };
                     
@@ -315,30 +325,42 @@ GMSAutocompleteViewControllerDelegate
 
      }];
 
+    [self.activity stopAnimating];
    // block();
 }
 
 #pragma mark Map Methods
 
-- (void)getCurrentLocation {
+- (void) setUpActivityView {
+    self.activity = [[UIActivityIndicatorView alloc]initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    self.activity.center = CGPointMake(self.view.bounds.size.width/2, self.view.bounds.size.height/2);
+    [self.mapView addSubview:self.activity];
     
-        //instantiate CLLocation
-    if (self.locationManager == nil){
-            self.locationManager = [[CLLocationManager alloc]init];
-        }
-        self.locationManager.delegate = self;
-        self.locationManager.distanceFilter = kCLDistanceFilterNone;
-        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+}
 
-    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]){
-        [self.locationManager requestAlwaysAuthorization];
-    }
+- (void) getCurrentLocation {
+    
+    [self setUpActivityView];
+    
+//        //instantiate CLLocation
+//    if (self.locationManager == nil){
+//            self.locationManager = [[CLLocationManager alloc]init];
+//        }
+//        self.locationManager.delegate = self;
+//        self.locationManager.distanceFilter = kCLDistanceFilterNone;
+//        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//
+//    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]){
+//        [self.locationManager requestAlwaysAuthorization];
+//    }
     
     INTULocationManager *locationMgr = [INTULocationManager sharedInstance];
     
     [locationMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse
                                             timeout:10.0 block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
                                                 if (status == INTULocationStatusSuccess){
+                                                    
+                                                    [self.activity stopAnimating];
                                                     
                                                     self.currentLoc = currentLocation;
                                                     
@@ -513,7 +535,19 @@ didFailAutocompleteWithError:(NSError *)error {
     }];
     
     
+    
+    
+    
 }
+
+//lat = 40.72838173,
+//lng = -73.88779443>
+
+//lat = "40.7285639";
+//lng = "-73.8878187";
+
+
+
 
 
 @end
