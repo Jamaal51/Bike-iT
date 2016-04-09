@@ -29,25 +29,10 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>ZFHaversine.xcscheme</key>
-		<dict>
-			<key>isShown</key>
-			<false/>
-		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
-		<key>42080CEAF73E693F406F4303AA971DC4</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>7F93C8586FEBF3953B18EC74CAACD15A</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>8F03B054352C7122939D5B5B5C048571</key>
+		<key>90244A2BE7C881847E36B63CFA3ED11D</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -57,12 +42,17 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>9D2C0DE67B59236D74855CD47B5D741D</key>
+		<key>D975F5C284CDB025EE35CDA5D845DEB4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>E07A1B93D0B5E99C6E979FACDA81D9B4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>ED988303980202C5DEE1F04D3EE6861F</key>
 		<dict>
 			<key>primary</key>
 			<true/>

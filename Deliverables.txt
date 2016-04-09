@@ -1,0 +1,16 @@
+Deliverables:
+
+1. Ability to identify when to display next Leg of journey
+2. Display directions and Next step in route
+3. Animating displays
+4. show directions in modal view controller
+5. provide alternate routes and clickable GMSPolylines
+6. Ability to draw polyline over route taken
+7. Handle changes of paths
+8. Connect to WatchKit
+9. Have voice kit for directions
+10. UI makeover
+
+… 
+
+launch

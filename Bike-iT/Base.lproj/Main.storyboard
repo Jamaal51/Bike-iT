@@ -93,9 +93,17 @@
                                             <action selector="startButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="y3y-Yd-YHQ"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0t-f5-W3v">
+                                        <rect key="frame" x="279" y="39" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
+                                    <constraint firstItem="y0t-f5-W3v" firstAttribute="centerX" secondItem="TNJ-B2-gfk" secondAttribute="centerX" id="8b8-54-oI0"/>
+                                    <constraint firstItem="y0t-f5-W3v" firstAttribute="centerY" secondItem="TNJ-B2-gfk" secondAttribute="centerY" id="DS7-NO-SvV"/>
                                     <constraint firstAttribute="height" constant="100" id="gOo-uc-pLY"/>
                                     <constraint firstAttribute="bottom" secondItem="W5c-sg-CJA" secondAttribute="bottom" id="iva-ei-yk9"/>
                                     <constraint firstAttribute="trailing" secondItem="W5c-sg-CJA" secondAttribute="trailing" id="nZS-33-vAG"/>
@@ -128,6 +136,7 @@
                     <connections>
                         <outlet property="bikeMapBottom" destination="yYg-Oa-mJY" id="deS-Xu-edd"/>
                         <outlet property="destinationButton" destination="VlX-WH-xKX" id="IlB-JP-fCJ"/>
+                        <outlet property="distanceLabel" destination="y0t-f5-W3v" id="DfH-ov-CHi"/>
                         <outlet property="mapView" destination="2Wh-7z-Cmm" id="d4d-Ev-3A2"/>
                         <outlet property="originButton" destination="yT6-VQ-QZY" id="l6U-iS-rKn"/>
                         <outlet property="toAndFromView" destination="K1e-eE-wvG" id="Bsi-Mf-8sF"/>

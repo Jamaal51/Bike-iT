@@ -17,20 +17,17 @@ PODS:
   - GoogleMaps (1.13.0)
   - INTULocationManager (4.2.0)
   - StripHTML (0.1.1)
-  - ZFHaversine (0.3)
 
 DEPENDENCIES:
   - AFNetworking (~> 3.1)
   - GoogleMaps (~> 1.13)
   - INTULocationManager (~> 4.2)
   - StripHTML
-  - ZFHaversine (~> 0.3)
 
 SPEC CHECKSUMS:
   AFNetworking: 5e0e199f73d8626b11e79750991f5d173d1f8b67
   GoogleMaps: 7a6caeb8336d7cb42982e969fc9b1b20a889fe79
   INTULocationManager: 73f8254b3d05c897c56bb13c190e5b7c648c0998
   StripHTML: 605c5edb678022c6183fff7ebed56db01219a62d
-  ZFHaversine: c5b6cd9e387d46a8049911027c5a15f5f4098fb6
 
 COCOAPODS: 0.39.0
