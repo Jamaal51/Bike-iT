@@ -138,7 +138,7 @@ GMSMapViewDelegate
                                                             
                                                             CGFloat distance = [self directMetersFromCoordinate:currentLocation.coordinate toCoordinate:dest];
                                                             
-                                                            if (distance > 10){
+                                                            if (distance < 10){
                                                                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Turn Coming Up!" message:@"Get ready to turn!" preferredStyle:UIAlertControllerStyleAlert];
                                                                 UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Gotcha" style:UIAlertActionStyleCancel handler:nil];
                                                                 [alert addAction:cancel];
@@ -159,6 +159,23 @@ GMSMapViewDelegate
                                                             
                                                         }
                                                     }];
+    
+    [locMgr subscribeToSignificantLocationChangesWithBlock:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+        if (status == INTULocationStatusSuccess) {
+            
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Significant Location Change" message:@"New spot!" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Gotcha" style:UIAlertActionStyleCancel handler:nil];
+            [alert addAction:cancel];
+            
+            [self presentViewController:alert animated:true completion:nil];
+            
+            [self makeNewBikeDirectionsAPIRequestwithOrigin:currentLocation.coordinate destination:self.destination.coordinate completionHandler:nil];
+
+        }
+        else {
+            // An error occurred, more info is available by looking at the specific status returned. The subscription has been kept alive.
+        }
+    }];
 
     
 }
@@ -233,6 +250,11 @@ GMSMapViewDelegate
 - (void)makeNewBikeDirectionsAPIRequestwithOrigin:(CLLocationCoordinate2D)coord1
                                       destination:(CLLocationCoordinate2D)coord2
                                 completionHandler:(void(^)())block {
+    
+    for (GMSPolyline *polyline in self.polylineArray){
+        polyline.map = nil;
+    }
+
 
     NSString *urlString = [NSString stringWithFormat:@"https://maps.googleapis.com/maps/api/directions/json?origin=%f,%f&destination=%f,%f&mode=bicycling&alternatives=true&sensor=true&key=AIzaSyAd1r6-rsY8RMiF4iXNjoF9quj999DSiaQ",coord1.latitude,coord1.longitude,coord2.latitude,coord2.longitude];
     NSString *encodedString = [urlString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
