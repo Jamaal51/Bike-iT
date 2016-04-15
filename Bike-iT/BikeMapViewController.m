@@ -13,7 +13,8 @@
 <
 UITextFieldDelegate,
 CLLocationManagerDelegate,
-GMSAutocompleteViewControllerDelegate
+GMSAutocompleteViewControllerDelegate,
+GMSMapViewDelegate
 >
 @property (strong, nonatomic) IBOutlet UIView *bottomStatsView;
 @property (strong, nonatomic) IBOutlet UIView *toAndFromView;
@@ -60,14 +61,49 @@ GMSAutocompleteViewControllerDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    [self getCurrentLocation];
+    //instantiate CLLocation
+//        if (self.locationManager == nil){
+//                self.locationManager = [[CLLocationManager alloc]init];
+//            }
+//            self.locationManager.delegate = self;
+//            self.locationManager.distanceFilter = kCLDistanceFilterNone;
+//            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
+//    
+//        if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]){
+//            [self.locationManager requestAlwaysAuthorization];
+//        }
+    
+    self.mapView.delegate = self;
+    
+    self.mapView.myLocationEnabled = YES;
+    
+//    [self getCurrentLocation];
     
     //[self testCurrent];
 }
+//http://stackoverflow.com/questions/24112469/unable-to-get-current-location-coordinates-using-google-maps-api-for-ios
+-(void)viewWillAppear:(BOOL)animated{
+    [super viewWillAppear:animated];
+    [self.mapView addObserver:self forKeyPath:@"myLocation" options:NSKeyValueObservingOptionNew context: nil];
 
-- (void)viewDidAppear:(BOOL)animated{
-    [super viewDidAppear:animated];
-    
+}
+-(void)viewWillDisappear:(BOOL)animated{
+    [super viewWillDisappear:animated];
+    [self.mapView removeObserver:self forKeyPath:@"myLocation"];
+}
+
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+    if ([keyPath isEqualToString:@"myLocation"] && [object isKindOfClass:[GMSMapView class]]){
+        
+        GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.mapView.myLocation.coordinate.latitude longitude:self.mapView.myLocation.coordinate.longitude zoom:16];
+        
+        [self.mapView setCamera:camera];
+        
+//         NSLog(@"KVO triggered. Location Latitude: %f Longitude: %f",self.mapView.myLocation.coordinate.latitude,self.mapView.myLocation.coordinate.longitude);
+        
+        self.currentLoc = self.mapView.myLocation;
+        
+    }
 }
 
 - (IBAction)startButtonTapped:(UIButton *)sender {
@@ -92,13 +128,15 @@ GMSAutocompleteViewControllerDelegate
                                                             CLLocationDegrees startLngCoord = [startLng doubleValue];
                                                             CLLocationCoordinate2D origin = CLLocationCoordinate2DMake(startLatCoord, startLngCoord);
                                                             
+                                                            CLLocationCoordinate2D originTwo = CLLocationCoordinate2DMake(self.mapView.myLocation.coordinate.latitude, self.mapView.myLocation.coordinate.longitude);
+                                                            
                                                             NSString *endLat = self.routeDirections[0][@"endLat"];
                                                             NSString *endLng = self.routeDirections[0][@"endLng"];
                                                             CLLocationDegrees endLatCoord = [endLat doubleValue];
                                                             CLLocationDegrees endLngCoord = [endLng doubleValue];
                                                             CLLocationCoordinate2D dest = CLLocationCoordinate2DMake(endLatCoord, endLngCoord);
                                                             
-                                                            CGFloat distance = [self directMetersFromCoordinate:origin toCoordinate:dest];
+                                                            CGFloat distance = [self directMetersFromCoordinate:currentLocation.coordinate toCoordinate:dest];
                                                             
                                                             [self.distanceLabel setText:[NSString stringWithFormat:@"%.2f Feet",distance]];
                                                             
@@ -306,9 +344,9 @@ GMSAutocompleteViewControllerDelegate
 
 - (void) getCurrentLocation {
     
-    [self setUpActivityView];
+ //   [self setUpActivityView];
     
-//        //instantiate CLLocation
+        //instantiate CLLocation
 //    if (self.locationManager == nil){
 //            self.locationManager = [[CLLocationManager alloc]init];
 //        }
@@ -322,20 +360,25 @@ GMSAutocompleteViewControllerDelegate
     
     INTULocationManager *locationMgr = [INTULocationManager sharedInstance];
     
+    
     [locationMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse
                                             timeout:10.0 block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
                                                 if (status == INTULocationStatusSuccess){
                                                     
-                                                    [self.activity stopAnimating];
+                                                   // [self.activity stopAnimating];
                                                     
                                                     self.currentLoc = currentLocation;
                                                     
-                                                    GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.currentLoc.coordinate.latitude
-                                                                                                            longitude:self.currentLoc.coordinate.longitude
-                                                                                                                 zoom:16];
                                                     
+                                                        dispatch_async(dispatch_get_main_queue(), ^{
+                                                            GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.currentLoc.coordinate.latitude
+                                                                                                                    longitude:self.currentLoc.coordinate.longitude
+                                                                                                                         zoom:16];
+                                                            
+                                                            
+                                                            [self.mapView setCamera:camera];
                                                     
-                                                    [self.mapView setCamera:camera];
+                                                        });
                                                     
                                                     CLLocationCoordinate2D position = CLLocationCoordinate2DMake(self.currentLoc.coordinate.latitude, self.currentLoc.coordinate.longitude);
                                                     self.originMarker = [GMSMarker markerWithPosition:position];
