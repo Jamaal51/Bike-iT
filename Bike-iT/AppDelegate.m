@@ -7,6 +7,7 @@
 //
 
 #import "AppDelegate.h"
+#import <INTULocationManager/INTULocationManager.h>
 
 @interface AppDelegate ()
 
@@ -19,6 +20,15 @@
     [GMSServices provideAPIKey:@"AIzaSyDc8NpBDrE8tNI_bDcr5mOWnEldg6pG_wI"];
     
     //[GMSServices provideAPIKey:@"AIzaSyAeSU0Tub_0xQvz2KGf2_VErF1qP69yAoo"];
+    
+    if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocationKey]) {
+        INTULocationManager *locMgr = [INTULocationManager sharedInstance];
+        [locMgr subscribeToSignificantLocationChangesWithBlock:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+            // This block will be executed with the details of the significant location change that triggered the background app launch,
+            // and will continue to execute for any future significant location change events as well (unless canceled).
+        }];
+    }
+    return YES;
     
     return YES;
 }

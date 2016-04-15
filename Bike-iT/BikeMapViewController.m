@@ -138,6 +138,16 @@ GMSMapViewDelegate
                                                             
                                                             CGFloat distance = [self directMetersFromCoordinate:currentLocation.coordinate toCoordinate:dest];
                                                             
+                                                            if (distance > 10){
+                                                                UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Turn Coming Up!" message:@"Get ready to turn!" preferredStyle:UIAlertControllerStyleAlert];
+                                                                UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Gotcha" style:UIAlertActionStyleCancel handler:nil];
+                                                                [alert addAction:cancel];
+                                                                
+                                                                [self presentViewController:alert animated:true completion:nil];
+                                                                
+                                                                NSLog(@"Turn!");
+                                                            }
+                                                            
                                                             [self.distanceLabel setText:[NSString stringWithFormat:@"%.2f Feet",distance]];
                                                             
                                                             NSLog(@"Origin Coord: %f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
@@ -152,6 +162,7 @@ GMSMapViewDelegate
 
     
 }
+
 
 //referenced from http://www.codecodex.com/wiki/Calculate_distance_between_two_points_on_a_globe#Objective_C
 
