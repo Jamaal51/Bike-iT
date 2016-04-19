@@ -25,7 +25,9 @@ GMSMapViewDelegate
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
 
 @property (nonatomic) UIActivityIndicatorView *activity;
-@property (strong, nonatomic) CLLocationManager *locationManager;
+@property (strong, nonatomic) INTULocationManager *locMgr;
+@property (nonatomic) NSInteger locationID;
+@property (nonatomic) NSInteger headingID;
 
 @property (nonatomic) CLLocation *currentLoc;
 @property (nonatomic) CLLocation *updatedLoc;
@@ -61,21 +63,12 @@ GMSMapViewDelegate
 - (void)viewDidLoad {
     [super viewDidLoad];
     
-    //instantiate CLLocation
-//        if (self.locationManager == nil){
-//                self.locationManager = [[CLLocationManager alloc]init];
-//            }
-//            self.locationManager.delegate = self;
-//            self.locationManager.distanceFilter = kCLDistanceFilterNone;
-//            self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-//    
-//        if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]){
-//            [self.locationManager requestAlwaysAuthorization];
-//        }
-    
     self.mapView.delegate = self;
     
     self.mapView.myLocationEnabled = YES;
+    
+    self.locationID = 0;
+    self.headingID = 1;
     
 //    [self getCurrentLocation];
     
@@ -93,7 +86,11 @@ GMSMapViewDelegate
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context{
+   
+    while (self.currentLoc == nil) {
+    
     if ([keyPath isEqualToString:@"myLocation"] && [object isKindOfClass:[GMSMapView class]]){
+        
         
         GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:self.mapView.myLocation.coordinate.latitude longitude:self.mapView.myLocation.coordinate.longitude zoom:16];
         
@@ -103,6 +100,7 @@ GMSMapViewDelegate
         
         self.currentLoc = self.mapView.myLocation;
         
+        }
     }
 }
 
@@ -113,22 +111,30 @@ GMSMapViewDelegate
 
 - (void)updateCurrentLocation{
     
+    GMSMutablePath *path = [GMSMutablePath path];
+    
     INTULocationManager *locMgr = [INTULocationManager sharedInstance];
+    
     [locMgr subscribeToLocationUpdatesWithDesiredAccuracy:INTULocationAccuracyHouse
                                                     block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
                                                         
                                                         if (status == INTULocationStatusSuccess) {
+                                                            
+
+                                                            
+                                                            [path addCoordinate:currentLocation.coordinate];
+                                                            
                                                             //NSString* currentLat = [self decimalFormatter:currentLocation.coordinate.latitude];
                                                             //NSString* currentLng = [self decimalFormatter:currentLocation.coordinate.longitude];
                                                             
 //                                                            double distance = [self checkDistanceBetweenLat1:currentLocation.coordinate.latitude lng1:currentLocation.coordinate.longitude];
-                                                            NSString *startLat = self.routeDirections[0][@"startLat"];
-                                                            NSString *startLng = self.routeDirections[0][@"startLng"];
-                                                            CLLocationDegrees startLatCoord = [startLat doubleValue];
-                                                            CLLocationDegrees startLngCoord = [startLng doubleValue];
-                                                            CLLocationCoordinate2D origin = CLLocationCoordinate2DMake(startLatCoord, startLngCoord);
-                                                            
-                                                            CLLocationCoordinate2D originTwo = CLLocationCoordinate2DMake(self.mapView.myLocation.coordinate.latitude, self.mapView.myLocation.coordinate.longitude);
+//                                                            NSString *startLat = self.routeDirections[0][@"startLat"];
+//                                                            NSString *startLng = self.routeDirections[0][@"startLng"];
+//                                                            CLLocationDegrees startLatCoord = [startLat doubleValue];
+//                                                            CLLocationDegrees startLngCoord = [startLng doubleValue];
+//                                                            CLLocationCoordinate2D origin = CLLocationCoordinate2DMake(startLatCoord, startLngCoord);
+//                                                            
+//                                                            CLLocationCoordinate2D originTwo = CLLocationCoordinate2DMake(self.mapView.myLocation.coordinate.latitude, self.mapView.myLocation.coordinate.longitude);
                                                             
                                                             NSString *endLat = self.routeDirections[0][@"endLat"];
                                                             NSString *endLng = self.routeDirections[0][@"endLng"];
@@ -137,7 +143,7 @@ GMSMapViewDelegate
                                                             CLLocationCoordinate2D dest = CLLocationCoordinate2DMake(endLatCoord, endLngCoord);
                                                             
                                                             CGFloat distance = [self directMetersFromCoordinate:currentLocation.coordinate toCoordinate:dest];
-                                                            
+
                                                             if (distance < 10){
                                                                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Turn Coming Up!" message:@"Get ready to turn!" preferredStyle:UIAlertControllerStyleAlert];
                                                                 UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Gotcha" style:UIAlertActionStyleCancel handler:nil];
@@ -158,27 +164,56 @@ GMSMapViewDelegate
                                                         else {
                                                             
                                                         }
+                                                        
+                                                        GMSCameraPosition *position = [GMSCameraPosition cameraWithTarget:currentLocation.coordinate zoom:20];
+                                                        [self.mapView setCamera:position];
+
+    
+                                                        GMSPolyline *polyline = [GMSPolyline polylineWithPath:path];
+                                                        polyline.map = self.mapView;
+                                                        polyline.strokeColor = [UIColor redColor];
+                                                        polyline.strokeWidth = 5;
+                                                        
+                                                    
+                                
                                                     }];
     
-    [locMgr subscribeToSignificantLocationChangesWithBlock:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
-        if (status == INTULocationStatusSuccess) {
+    
+   
+    [locMgr subscribeToHeadingUpdatesWithBlock:^(CLHeading *heading, INTUHeadingStatus status) {
+        if (status == INTUHeadingStatusSuccess) {
             
-            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Significant Location Change" message:@"New spot!" preferredStyle:UIAlertControllerStyleAlert];
-            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Gotcha" style:UIAlertActionStyleCancel handler:nil];
-            [alert addAction:cancel];
+            [self.mapView animateToBearing:heading.trueHeading];
             
-            [self presentViewController:alert animated:true completion:nil];
-            
-            [self makeNewBikeDirectionsAPIRequestwithOrigin:currentLocation.coordinate destination:self.destination.coordinate completionHandler:nil];
-
-        }
-        else {
-            // An error occurred, more info is available by looking at the specific status returned. The subscription has been kept alive.
+            // An updated heading is available
+            //NSLog(@"'Heading updates' subscription block called with Current Heading:\n%@", heading);
+        } else {
+            // An error occurred, more info is available by looking at the specific status returned. The subscription will be canceled only if the device doesn't have heading support.
         }
     }];
 
     
+//    [locMgr subscribeToSignificantLocationChangesWithBlock:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
+//        if (status == INTULocationStatusSuccess) {
+//            
+//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Significant Location Change" message:@"New spot!" preferredStyle:UIAlertControllerStyleAlert];
+//            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Gotcha" style:UIAlertActionStyleCancel handler:nil];
+//            [alert addAction:cancel];
+//            
+//            [self presentViewController:alert animated:true completion:nil];
+//            
+//            [self makeNewBikeDirectionsAPIRequestwithOrigin:currentLocation.coordinate destination:self.destination.coordinate completionHandler:nil];
+//
+//        }
+//        else {
+//            // An error occurred, more info is available by looking at the specific status returned. The subscription has been kept alive.
+//        }
+//    }];
+
+
+    
 }
+
 
 
 //referenced from http://www.codecodex.com/wiki/Calculate_distance_between_two_points_on_a_globe#Objective_C
@@ -300,20 +335,10 @@ GMSMapViewDelegate
                     NSString *endLocationLat = step[@"end_location"][@"lat"];
                     NSString *endLocationLng = step[@"end_location"][@"lng"];
                     
-//                    CLLocationDegrees startLatDegree = [step[@"start_location"][@"lat"] doubleValue];
-//                    CLLocationDegrees startLngDegree = [step[@"start_location"][@"lng"] doubleValue];
-//                    CLLocationDegrees endLatDegree = [step[@"start_location"][@"lat"] doubleValue];
-//                    CLLocationDegrees endLngDegree = [step[@"start_location"][@"lng"] doubleValue];
-//                    
-//                    NSString *fmtStartLatString = [self decimalFormatter:startLatDegree];
-//                    NSString *fmtStartLngString = [self decimalFormatter:startLngDegree];
-//                    NSString *fmtEndLatString = [self decimalFormatter:endLatDegree];
-//                    NSString *fmtEndLngString = [self decimalFormatter:endLngDegree];
-                    
                     self.path =[GMSPath pathFromEncodedPath:
                                     json[@"routes"][0][@"overview_polyline"][@"points"]];
                     self.polyline = [GMSPolyline polylineWithPath:self.path];
-                    self.polyline.strokeWidth = 7;
+                    self.polyline.strokeWidth = 5;
                     self.polyline.strokeColor = [UIColor greenColor];
                     
                     [self.polylineArray addObject:self.polyline];
@@ -377,24 +402,9 @@ GMSMapViewDelegate
 
 - (void) getCurrentLocation {
     
- //   [self setUpActivityView];
+    INTULocationManager *locMgr = [INTULocationManager sharedInstance];
     
-        //instantiate CLLocation
-//    if (self.locationManager == nil){
-//            self.locationManager = [[CLLocationManager alloc]init];
-//        }
-//        self.locationManager.delegate = self;
-//        self.locationManager.distanceFilter = kCLDistanceFilterNone;
-//        self.locationManager.desiredAccuracy = kCLLocationAccuracyBest;
-//
-//    if ([self.locationManager respondsToSelector:@selector(requestAlwaysAuthorization)]){
-//        [self.locationManager requestAlwaysAuthorization];
-//    }
-    
-    INTULocationManager *locationMgr = [INTULocationManager sharedInstance];
-    
-    
-    [locationMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse
+    [locMgr requestLocationWithDesiredAccuracy:INTULocationAccuracyHouse
                                             timeout:10.0 block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
                                                 if (status == INTULocationStatusSuccess){
                                                     
@@ -475,6 +485,8 @@ GMSMapViewDelegate
         self.returnDestination = TRUE;
         self.returnOrigin = FALSE;
     }
+    
+    [self.locMgr cancelLocationRequest:0];
 }
 
 // Handle the user's selection.

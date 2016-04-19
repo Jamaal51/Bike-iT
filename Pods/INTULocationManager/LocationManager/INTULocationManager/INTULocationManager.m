@@ -257,7 +257,10 @@ static id _sharedInstance;
     
     [self addLocationRequest:locationRequest];
     
+    NSLog(@"REQUEST ID: %ld",(long)locationRequest.requestID);
+    
     return locationRequest.requestID;
+    
 }
 
 /**
