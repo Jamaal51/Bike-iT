@@ -8,6 +8,7 @@
 
 #import "BikeMapViewController.h"
 #import "CustomView.h"
+#import "CLLocation+Bearing.h"
 
 @interface BikeMapViewController ()
 <
@@ -51,7 +52,8 @@ GMSMapViewDelegate
 @property (nonatomic) NSMutableArray *maneuverArray;
 @property (nonatomic) NSMutableArray *numberArray;
 
-@property (nonatomic) NSMutableArray *routeDirections; //Array of route steps
+@property (nonatomic) NSMutableArray *routeSteps; //Array of route steps
+@property (nonatomic) NSMutableArray *completedSteps;
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *bikeMapBottom;
 
 
@@ -61,6 +63,7 @@ GMSMapViewDelegate
 @implementation BikeMapViewController
 
 - (void)viewDidLoad {
+    
     [super viewDidLoad];
     
     self.mapView.delegate = self;
@@ -120,31 +123,32 @@ GMSMapViewDelegate
                                                         
                                                         if (status == INTULocationStatusSuccess) {
                                                             
-
-                                                            
                                                             [path addCoordinate:currentLocation.coordinate];
                                                             
-                                                            //NSString* currentLat = [self decimalFormatter:currentLocation.coordinate.latitude];
-                                                            //NSString* currentLng = [self decimalFormatter:currentLocation.coordinate.longitude];
-                                                            
-//                                                            double distance = [self checkDistanceBetweenLat1:currentLocation.coordinate.latitude lng1:currentLocation.coordinate.longitude];
-//                                                            NSString *startLat = self.routeDirections[0][@"startLat"];
-//                                                            NSString *startLng = self.routeDirections[0][@"startLng"];
-//                                                            CLLocationDegrees startLatCoord = [startLat doubleValue];
-//                                                            CLLocationDegrees startLngCoord = [startLng doubleValue];
-//                                                            CLLocationCoordinate2D origin = CLLocationCoordinate2DMake(startLatCoord, startLngCoord);
-//                                                            
-//                                                            CLLocationCoordinate2D originTwo = CLLocationCoordinate2DMake(self.mapView.myLocation.coordinate.latitude, self.mapView.myLocation.coordinate.longitude);
-                                                            
-                                                            NSString *endLat = self.routeDirections[0][@"endLat"];
-                                                            NSString *endLng = self.routeDirections[0][@"endLng"];
+                                                            NSString *endLat = self.routeSteps[0][@"endLat"];
+                                                            NSString *endLng = self.routeSteps[0][@"endLng"];
                                                             CLLocationDegrees endLatCoord = [endLat doubleValue];
                                                             CLLocationDegrees endLngCoord = [endLng doubleValue];
                                                             CLLocationCoordinate2D dest = CLLocationCoordinate2DMake(endLatCoord, endLngCoord);
+                                                            CLLocation *destination = [[CLLocation alloc]initWithLatitude:endLatCoord longitude:endLngCoord];
                                                             
-                                                            CGFloat distance = [self directMetersFromCoordinate:currentLocation.coordinate toCoordinate:dest];
+                                                            CGFloat distance2 = [currentLocation distanceFromLocation:destination];
+                                                            CGFloat distanceFeet = distance2 * 3.28084;
+                                                            
+//                                                            CGFloat distance = [self directMetersFromCoordinate:currentLocation.coordinate toCoordinate:dest];
+                                                            
+                                                            CLLocation_Bearing *bearing = [[CLLocation_Bearing alloc]init];
+                                                            
+                                                            [bearing bearingFromLocation:currentLocation to:destination];
+                                                            
+                                                         //   NSLog(@"Bearing: %f",bearing.bearing);
+                                                        
+                                                            
+                                                            GMSCameraPosition *position = [GMSCameraPosition cameraWithTarget:currentLocation.coordinate zoom:19 bearing:bearing.bearing viewingAngle:45];
+                                                            [self.mapView setCamera:position];
 
-                                                            if (distance < 10){
+
+                                                            if (distanceFeet < 10){
                                                                 UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Turn Coming Up!" message:@"Get ready to turn!" preferredStyle:UIAlertControllerStyleAlert];
                                                                 UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Gotcha" style:UIAlertActionStyleCancel handler:nil];
                                                                 [alert addAction:cancel];
@@ -154,20 +158,17 @@ GMSMapViewDelegate
                                                                 NSLog(@"Turn!");
                                                             }
                                                             
-                                                            [self.distanceLabel setText:[NSString stringWithFormat:@"%.2f Feet",distance]];
+                                                            [self.distanceLabel setText:[NSString stringWithFormat:@"%.2f Feet",distanceFeet]];
                                                             
                                                             NSLog(@"Origin Coord: %f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
                                                             NSLog(@"Dest Coord: %f,%f",endLatCoord,endLngCoord);
-                                                            NSLog(@"Distance between points: %f feet",distance);
+                                                            NSLog(@"Distance between points: %f feet",distanceFeet);
                                                         }
                                                         
                                                         else {
                                                             
                                                         }
-                                                        
-                                                        GMSCameraPosition *position = [GMSCameraPosition cameraWithTarget:currentLocation.coordinate zoom:20];
-                                                        [self.mapView setCamera:position];
-
+                                                    
     
                                                         GMSPolyline *polyline = [GMSPolyline polylineWithPath:path];
                                                         polyline.map = self.mapView;
@@ -183,7 +184,7 @@ GMSMapViewDelegate
     [locMgr subscribeToHeadingUpdatesWithBlock:^(CLHeading *heading, INTUHeadingStatus status) {
         if (status == INTUHeadingStatusSuccess) {
             
-            [self.mapView animateToBearing:heading.trueHeading];
+            //[self.mapView animateToBearing:heading.trueHeading];
             
             // An updated heading is available
             //NSLog(@"'Heading updates' subscription block called with Current Heading:\n%@", heading);
@@ -191,29 +192,18 @@ GMSMapViewDelegate
             // An error occurred, more info is available by looking at the specific status returned. The subscription will be canceled only if the device doesn't have heading support.
         }
     }];
-
-    
-//    [locMgr subscribeToSignificantLocationChangesWithBlock:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
-//        if (status == INTULocationStatusSuccess) {
-//            
-//            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Significant Location Change" message:@"New spot!" preferredStyle:UIAlertControllerStyleAlert];
-//            UIAlertAction *cancel = [UIAlertAction actionWithTitle:@"Gotcha" style:UIAlertActionStyleCancel handler:nil];
-//            [alert addAction:cancel];
-//            
-//            [self presentViewController:alert animated:true completion:nil];
-//            
-//            [self makeNewBikeDirectionsAPIRequestwithOrigin:currentLocation.coordinate destination:self.destination.coordinate completionHandler:nil];
-//
-//        }
-//        else {
-//            // An error occurred, more info is available by looking at the specific status returned. The subscription has been kept alive.
-//        }
-//    }];
-
-
     
 }
 
+- (void)moveToNextStepInRoute {
+    
+    
+    
+    
+    
+    
+    
+}
 
 
 //referenced from http://www.codecodex.com/wiki/Calculate_distance_between_two_points_on_a_globe#Objective_C
@@ -314,7 +304,7 @@ GMSMapViewDelegate
                 self.totalDuration = json[@"routes"][0][@"legs"][0][@"duration"][@"text"];
 
                 self.polylineArray = [[NSMutableArray alloc]init];
-                self.routeDirections = [[NSMutableArray alloc] init];
+                self.routeSteps = [[NSMutableArray alloc] init];
                 
                 //iteratign through JSON routes
                 double directionsCount = 0;
@@ -358,7 +348,7 @@ GMSMapViewDelegate
                                                 @"endLng" : endLocationLng
                                                 };
                     
-                    [self.routeDirections addObject:routeStep];
+                    [self.routeSteps addObject:routeStep];
                     
                 }
                 
@@ -373,7 +363,7 @@ GMSMapViewDelegate
                 NSLog(@"Unbikable!");
             }
             
-             NSLog(@"Route Directions Array: %@",self.routeDirections);
+             NSLog(@"Route Directions Array: %@",self.routeSteps);
 
         }}
             failure:^(NSURLSessionTask *operation, NSError *error) {

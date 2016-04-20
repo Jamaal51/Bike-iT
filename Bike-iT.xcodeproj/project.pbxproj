@@ -15,6 +15,7 @@
 		9A67B3C01CAF2CAF0028586B /* BikeMapViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A67B3BF1CAF2CAF0028586B /* BikeMapViewController.m */; };
 		9A94A38C1CB1A77100CF8A5F /* CustomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A94A38B1CB1A77100CF8A5F /* CustomView.xib */; };
 		9A94A38F1CB1A85C00CF8A5F /* CustomView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A94A38E1CB1A85C00CF8A5F /* CustomView.m */; };
+		9AE253D21CC7C0A2005E9165 /* CLLocation+Bearing.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AE253D11CC7C0A2005E9165 /* CLLocation+Bearing.m */; };
 		C72D923374A4D78135CDE64C /* libPods-Bike-iT.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 95F2CE6D46600A65BB046095 /* libPods-Bike-iT.a */; };
 /* End PBXBuildFile section */
 
@@ -35,6 +36,8 @@
 		9A94A38B1CB1A77100CF8A5F /* CustomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomView.xib; sourceTree = "<group>"; };
 		9A94A38D1CB1A85C00CF8A5F /* CustomView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomView.h; sourceTree = "<group>"; };
 		9A94A38E1CB1A85C00CF8A5F /* CustomView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomView.m; sourceTree = "<group>"; };
+		9AE253D01CC7C0A2005E9165 /* CLLocation+Bearing.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "CLLocation+Bearing.h"; sourceTree = "<group>"; };
+		9AE253D11CC7C0A2005E9165 /* CLLocation+Bearing.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "CLLocation+Bearing.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,17 +90,12 @@
 		9A67B3A61CAD7DCA0028586B /* Bike-iT */ = {
 			isa = PBXGroup;
 			children = (
-				9A67B3AA1CAD7DCA0028586B /* AppDelegate.h */,
-				9A67B3AB1CAD7DCA0028586B /* AppDelegate.m */,
 				9A67B3BE1CAF2CAF0028586B /* BikeMapViewController.h */,
 				9A67B3BF1CAF2CAF0028586B /* BikeMapViewController.m */,
-				9A94A38B1CB1A77100CF8A5F /* CustomView.xib */,
-				9A94A38D1CB1A85C00CF8A5F /* CustomView.h */,
-				9A94A38E1CB1A85C00CF8A5F /* CustomView.m */,
+				9AE253D01CC7C0A2005E9165 /* CLLocation+Bearing.h */,
+				9AE253D11CC7C0A2005E9165 /* CLLocation+Bearing.m */,
 				9A67B3B01CAD7DCA0028586B /* Main.storyboard */,
-				9A67B3B31CAD7DCA0028586B /* Assets.xcassets */,
-				9A67B3B51CAD7DCA0028586B /* LaunchScreen.storyboard */,
-				9A67B3B81CAD7DCA0028586B /* Info.plist */,
+				9AE253CF1CC7B5B1005E9165 /* Custom Objects */,
 				9A67B3A71CAD7DCA0028586B /* Supporting Files */,
 			);
 			path = "Bike-iT";
@@ -106,9 +104,24 @@
 		9A67B3A71CAD7DCA0028586B /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9A67B3AA1CAD7DCA0028586B /* AppDelegate.h */,
+				9A67B3AB1CAD7DCA0028586B /* AppDelegate.m */,
+				9A67B3B31CAD7DCA0028586B /* Assets.xcassets */,
+				9A67B3B51CAD7DCA0028586B /* LaunchScreen.storyboard */,
+				9A67B3B81CAD7DCA0028586B /* Info.plist */,
 				9A67B3A81CAD7DCA0028586B /* main.m */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		9AE253CF1CC7B5B1005E9165 /* Custom Objects */ = {
+			isa = PBXGroup;
+			children = (
+				9A94A38B1CB1A77100CF8A5F /* CustomView.xib */,
+				9A94A38D1CB1A85C00CF8A5F /* CustomView.h */,
+				9A94A38E1CB1A85C00CF8A5F /* CustomView.m */,
+			);
+			name = "Custom Objects";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -235,6 +248,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A67B3C01CAF2CAF0028586B /* BikeMapViewController.m in Sources */,
+				9AE253D21CC7C0A2005E9165 /* CLLocation+Bearing.m in Sources */,
 				9A94A38F1CB1A85C00CF8A5F /* CustomView.m in Sources */,
 				9A67B3AC1CAD7DCA0028586B /* AppDelegate.m in Sources */,
 				9A67B3A91CAD7DCA0028586B /* main.m in Sources */,

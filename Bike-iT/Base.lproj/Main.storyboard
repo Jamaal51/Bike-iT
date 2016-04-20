@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Bike Map View Controller-->
@@ -99,16 +100,39 @@
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHE-Gs-3IT">
+                                        <rect key="frame" x="279" y="10" width="42" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="owd-Eh-jn9">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="92"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="fSQ-ZO-eb8"/>
+                                        </constraints>
+                                    </imageView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="y0t-f5-W3v" firstAttribute="centerX" secondItem="TNJ-B2-gfk" secondAttribute="centerX" id="8b8-54-oI0"/>
+                                    <constraint firstItem="y0t-f5-W3v" firstAttribute="top" secondItem="tHE-Gs-3IT" secondAttribute="bottom" constant="8" id="A3w-eD-TBc"/>
                                     <constraint firstItem="y0t-f5-W3v" firstAttribute="centerY" secondItem="TNJ-B2-gfk" secondAttribute="centerY" id="DS7-NO-SvV"/>
+                                    <constraint firstAttribute="bottom" secondItem="owd-Eh-jn9" secondAttribute="bottom" constant="20" symbolic="YES" id="EHs-wD-shb"/>
+                                    <constraint firstItem="owd-Eh-jn9" firstAttribute="leading" secondItem="TNJ-B2-gfk" secondAttribute="leading" id="KDS-rP-2cY"/>
+                                    <constraint firstItem="y0t-f5-W3v" firstAttribute="centerX" secondItem="tHE-Gs-3IT" secondAttribute="centerX" id="NdN-lc-lFC"/>
+                                    <constraint firstAttribute="bottomMargin" secondItem="owd-Eh-jn9" secondAttribute="bottom" id="UlY-3o-YyQ"/>
+                                    <constraint firstItem="owd-Eh-jn9" firstAttribute="top" secondItem="TNJ-B2-gfk" secondAttribute="top" id="ZQl-rI-Z2G"/>
                                     <constraint firstAttribute="height" constant="100" id="gOo-uc-pLY"/>
                                     <constraint firstAttribute="bottom" secondItem="W5c-sg-CJA" secondAttribute="bottom" id="iva-ei-yk9"/>
                                     <constraint firstAttribute="trailing" secondItem="W5c-sg-CJA" secondAttribute="trailing" id="nZS-33-vAG"/>
                                     <constraint firstItem="W5c-sg-CJA" firstAttribute="top" secondItem="TNJ-B2-gfk" secondAttribute="top" id="zNK-3t-fqo"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="EHs-wD-shb"/>
+                                    </mask>
+                                </variation>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
