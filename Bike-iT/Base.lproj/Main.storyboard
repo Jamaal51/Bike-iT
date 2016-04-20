@@ -94,15 +94,9 @@
                                             <action selector="startButtonTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="y3y-Yd-YHQ"/>
                                         </connections>
                                     </button>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0t-f5-W3v">
-                                        <rect key="frame" x="279" y="39" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
-                                        <nil key="highlightedColor"/>
-                                    </label>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHE-Gs-3IT">
-                                        <rect key="frame" x="279" y="10" width="42" height="21"/>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tHE-Gs-3IT">
+                                        <rect key="frame" x="110" y="10" width="430" height="22"/>
+                                        <fontDescription key="fontDescription" name="Optima-Bold" family="Optima" pointSize="18"/>
                                         <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
@@ -112,25 +106,39 @@
                                             <constraint firstAttribute="width" constant="100" id="fSQ-ZO-eb8"/>
                                         </constraints>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y0t-f5-W3v">
+                                        <rect key="frame" x="110" y="40" width="430" height="21"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstItem="y0t-f5-W3v" firstAttribute="centerX" secondItem="TNJ-B2-gfk" secondAttribute="centerX" id="8b8-54-oI0"/>
+                                    <constraint firstItem="W5c-sg-CJA" firstAttribute="leading" secondItem="y0t-f5-W3v" secondAttribute="trailing" constant="10" id="8ta-qs-xXE"/>
                                     <constraint firstItem="y0t-f5-W3v" firstAttribute="top" secondItem="tHE-Gs-3IT" secondAttribute="bottom" constant="8" id="A3w-eD-TBc"/>
                                     <constraint firstItem="y0t-f5-W3v" firstAttribute="centerY" secondItem="TNJ-B2-gfk" secondAttribute="centerY" id="DS7-NO-SvV"/>
                                     <constraint firstAttribute="bottom" secondItem="owd-Eh-jn9" secondAttribute="bottom" constant="20" symbolic="YES" id="EHs-wD-shb"/>
                                     <constraint firstItem="owd-Eh-jn9" firstAttribute="leading" secondItem="TNJ-B2-gfk" secondAttribute="leading" id="KDS-rP-2cY"/>
                                     <constraint firstItem="y0t-f5-W3v" firstAttribute="centerX" secondItem="tHE-Gs-3IT" secondAttribute="centerX" id="NdN-lc-lFC"/>
                                     <constraint firstAttribute="bottomMargin" secondItem="owd-Eh-jn9" secondAttribute="bottom" id="UlY-3o-YyQ"/>
+                                    <constraint firstItem="tHE-Gs-3IT" firstAttribute="top" secondItem="TNJ-B2-gfk" secondAttribute="top" constant="10" id="Xg6-i7-J1y"/>
                                     <constraint firstItem="owd-Eh-jn9" firstAttribute="top" secondItem="TNJ-B2-gfk" secondAttribute="top" id="ZQl-rI-Z2G"/>
+                                    <constraint firstItem="W5c-sg-CJA" firstAttribute="leading" secondItem="tHE-Gs-3IT" secondAttribute="trailing" constant="10" id="c5n-IA-e5h"/>
                                     <constraint firstAttribute="height" constant="100" id="gOo-uc-pLY"/>
                                     <constraint firstAttribute="bottom" secondItem="W5c-sg-CJA" secondAttribute="bottom" id="iva-ei-yk9"/>
+                                    <constraint firstItem="y0t-f5-W3v" firstAttribute="leading" secondItem="owd-Eh-jn9" secondAttribute="trailing" constant="10" id="liG-dT-WQQ"/>
                                     <constraint firstAttribute="trailing" secondItem="W5c-sg-CJA" secondAttribute="trailing" id="nZS-33-vAG"/>
+                                    <constraint firstItem="tHE-Gs-3IT" firstAttribute="leading" secondItem="owd-Eh-jn9" secondAttribute="trailing" constant="10" id="xUj-fB-oRb"/>
                                     <constraint firstItem="W5c-sg-CJA" firstAttribute="top" secondItem="TNJ-B2-gfk" secondAttribute="top" id="zNK-3t-fqo"/>
                                 </constraints>
                                 <variation key="default">
                                     <mask key="constraints">
                                         <exclude reference="EHs-wD-shb"/>
+                                        <exclude reference="8b8-54-oI0"/>
+                                        <exclude reference="DS7-NO-SvV"/>
+                                        <exclude reference="NdN-lc-lFC"/>
                                     </mask>
                                 </variation>
                             </view>

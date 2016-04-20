@@ -11,6 +11,12 @@
 #import "CLLocation+Bearing.h"
 #import <AVFoundation/AVFoundation.h>
 
+typedef enum UserState{
+    TurnIsComing,
+    TurnMade,
+    ArrivedAtDestination
+} UserState;
+
 @interface BikeMapViewController ()
 <
 UITextFieldDelegate,
@@ -19,6 +25,8 @@ GMSAutocompleteViewControllerDelegate,
 GMSMapViewDelegate,
 AVSpeechSynthesizerDelegate
 >
+@property (nonatomic,assign) UserState *myState;
+
 @property (strong, nonatomic) IBOutlet UIView *bottomStatsView;
 @property (strong, nonatomic) IBOutlet UIView *toAndFromView;
 @property (strong, nonatomic) IBOutlet GMSMapView *mapView;
@@ -57,6 +65,8 @@ AVSpeechSynthesizerDelegate
 
 @property (nonatomic) NSMutableArray *routeSteps; //Array of route steps
 @property (nonatomic) NSMutableArray *completedSteps;
+
+
 @property (strong, nonatomic) IBOutlet NSLayoutConstraint *bikeMapBottom;
 
 
@@ -121,6 +131,8 @@ AVSpeechSynthesizerDelegate
     
     INTULocationManager *locMgr = [INTULocationManager sharedInstance];
     
+    self.myState = TurnIsComing;
+    
     [locMgr subscribeToLocationUpdatesWithDesiredAccuracy:INTULocationAccuracyHouse
                                                     block:^(CLLocation *currentLocation, INTULocationAccuracy achievedAccuracy, INTULocationStatus status) {
                                                         
@@ -167,7 +179,12 @@ AVSpeechSynthesizerDelegate
                                                             [self.distanceLabel setText:[NSString stringWithFormat:@"%.2f Feet",distanceFeet]];
                                                             
                                                             //speak direction
+                                                            
+                                                            if (self.myState == TurnIsComing){
+                                                        
                                                             [self speechFromString:direction];
+                                                                
+                                                            }
                                                             
                                                             NSLog(@"Origin Coord: %f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
                                                             NSLog(@"Dest Coord: %f,%f",endLatCoord,endLngCoord);
@@ -218,6 +235,8 @@ AVSpeechSynthesizerDelegate
     AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc]initWithString:string];
     utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];
     utterance.rate = 0.5;
+    
+    self.myState = TurnMade;
 
     [synthesizer speakUtterance:utterance];
 }
