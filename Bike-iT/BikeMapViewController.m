@@ -9,13 +9,15 @@
 #import "BikeMapViewController.h"
 #import "CustomView.h"
 #import "CLLocation+Bearing.h"
+#import <AVFoundation/AVFoundation.h>
 
 @interface BikeMapViewController ()
 <
 UITextFieldDelegate,
 CLLocationManagerDelegate,
 GMSAutocompleteViewControllerDelegate,
-GMSMapViewDelegate
+GMSMapViewDelegate,
+AVSpeechSynthesizerDelegate
 >
 @property (strong, nonatomic) IBOutlet UIView *bottomStatsView;
 @property (strong, nonatomic) IBOutlet UIView *toAndFromView;
@@ -24,6 +26,7 @@ GMSMapViewDelegate
 @property (strong, nonatomic) IBOutlet UIButton *originButton;
 @property (strong, nonatomic) IBOutlet UIButton *destinationButton;
 @property (strong, nonatomic) IBOutlet UILabel *distanceLabel;
+@property (strong, nonatomic) IBOutlet UILabel *directionLabel;
 
 @property (nonatomic) UIActivityIndicatorView *activity;
 @property (strong, nonatomic) INTULocationManager *locMgr;
@@ -158,7 +161,13 @@ GMSMapViewDelegate
                                                                 NSLog(@"Turn!");
                                                             }
                                                             
+                                                            NSString *direction = self.routeSteps[0][@"direction"];
+                                                            
+                                                            [self.directionLabel setText:direction];
                                                             [self.distanceLabel setText:[NSString stringWithFormat:@"%.2f Feet",distanceFeet]];
+                                                            
+                                                            //speak direction
+                                                            [self speechFromString:direction];
                                                             
                                                             NSLog(@"Origin Coord: %f,%f",currentLocation.coordinate.latitude,currentLocation.coordinate.longitude);
                                                             NSLog(@"Dest Coord: %f,%f",endLatCoord,endLngCoord);
@@ -173,12 +182,11 @@ GMSMapViewDelegate
                                                         GMSPolyline *polyline = [GMSPolyline polylineWithPath:path];
                                                         polyline.map = self.mapView;
                                                         polyline.strokeColor = [UIColor redColor];
-                                                        polyline.strokeWidth = 5;
+                                                        polyline.strokeWidth = 10;
                                                         
                                                     
                                 
                                                     }];
-    
     
    
     [locMgr subscribeToHeadingUpdatesWithBlock:^(CLHeading *heading, INTUHeadingStatus status) {
@@ -201,10 +209,18 @@ GMSMapViewDelegate
     
     
     
-    
-    
 }
 
+- (void)speechFromString:(NSString *)string {
+    
+    AVSpeechSynthesizer *synthesizer = [[AVSpeechSynthesizer alloc]init];
+    synthesizer.delegate = self;
+    AVSpeechUtterance *utterance = [[AVSpeechUtterance alloc]initWithString:string];
+    utterance.voice = [AVSpeechSynthesisVoice voiceWithLanguage:@"en-US"];
+    utterance.rate = 0.5;
+
+    [synthesizer speakUtterance:utterance];
+}
 
 //referenced from http://www.codecodex.com/wiki/Calculate_distance_between_two_points_on_a_globe#Objective_C
 
@@ -328,7 +344,7 @@ GMSMapViewDelegate
                     self.path =[GMSPath pathFromEncodedPath:
                                     json[@"routes"][0][@"overview_polyline"][@"points"]];
                     self.polyline = [GMSPolyline polylineWithPath:self.path];
-                    self.polyline.strokeWidth = 5;
+                    self.polyline.strokeWidth = 10;
                     self.polyline.strokeColor = [UIColor greenColor];
                     
                     [self.polylineArray addObject:self.polyline];

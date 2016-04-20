@@ -160,6 +160,7 @@
                     <connections>
                         <outlet property="bikeMapBottom" destination="yYg-Oa-mJY" id="deS-Xu-edd"/>
                         <outlet property="destinationButton" destination="VlX-WH-xKX" id="IlB-JP-fCJ"/>
+                        <outlet property="directionLabel" destination="tHE-Gs-3IT" id="yWa-ff-5NW"/>
                         <outlet property="distanceLabel" destination="y0t-f5-W3v" id="DfH-ov-CHi"/>
                         <outlet property="mapView" destination="2Wh-7z-Cmm" id="d4d-Ev-3A2"/>
                         <outlet property="originButton" destination="yT6-VQ-QZY" id="l6U-iS-rKn"/>
