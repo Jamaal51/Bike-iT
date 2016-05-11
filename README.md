@@ -1,2 +1,7 @@
 # Bike-iT
-Bike-iT redux
+Bike-iT
+
+if cloned, install GoogleMaps pod.
+
+GoogleMaps pod added to .gitignore
+
